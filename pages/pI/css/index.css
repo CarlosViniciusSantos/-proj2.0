@@ -61,3 +61,10 @@ header{
     height: 50px;
     text-align: center;
 }
+
+main h1{
+    
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+}
