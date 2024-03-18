@@ -11,9 +11,7 @@ header{
     z-index: 1;
     width: 100%;
 }
-.logos{
-    width: 40%;
-}
+
 #logo{
     width: 10%;
 }
@@ -64,8 +62,10 @@ header{
 
 main h1{
     
-    font-size: 70px;
+    font-size: xxx-large;
     display: flex;
     justify-content: center;
 }
-
+p{
+    text-align: justify;
+}
