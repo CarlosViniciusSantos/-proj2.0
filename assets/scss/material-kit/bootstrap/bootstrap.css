@@ -1056,6 +1056,11 @@ progress {
     --bs-gutter-y: 3rem;
   }
 }
+@media (min-width: 954px) {
+  .col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }}
 @media (min-width: 768px) {
   .col-md {
     flex: 1 0 0%;
@@ -1112,10 +1117,7 @@ progress {
     flex: 0 0 auto;
     width: 41.66666667%;
   }
-  .col-md-6 {
-    flex: 0 0 auto;
-    width: 50%;
-  }
+
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
