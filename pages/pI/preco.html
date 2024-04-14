@@ -32,7 +32,7 @@
     <!-- Custom styles for this template -->
     <link href="pricing.css" rel="stylesheet">
   </head>
-  <body class="">
+  <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -49,41 +49,6 @@
       </symbol>
     </svg>
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
-
     
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
   <symbol id="check" viewBox="0 0 16 16">
@@ -92,12 +57,12 @@
   </symbol>
 </svg>
 
-<div class="container py-3">
+<div class="container-fluid py-3 bg-body-secondary">
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-       <img src="img/lg-p-b.svg" width="70" height="70" class="me-2" alt="">
-        <span class="fs-4">Pricing example</span>
+      <a href="index.html" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+       <img src="img/lg-pret.svg" width="70" height="70" class="me-2" alt="">
+       <img src="img/NATURAL ADVENTURE-pt.svg" width="250" height="70" class="me-2"  alt="NATURAL ADVENTURE" >
       </a>
 
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
@@ -109,8 +74,8 @@
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal text-body-emphasis">Pricing</h1>
-      <p class="fs-5 text-body-secondary">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+      <h1 class="display-4 fw-normal text-body-emphasis">Planos para você</h1>
+      <p class="fs-5 text-body-secondary">Temos Planos para você, seus amigos e sua família, com os menores preços do país, totalmente acessivel para todos, para vocês curtirem no Natural Adventure.</p>
     </div>
   </header>
 
@@ -122,11 +87,11 @@
             <h4 class="my-0 fw-normal">Aventura Total</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">$70<small class="text-body-secondary fw-light">/p</small></h1>
             <ul class="list mt-3 mb-4">
               <li>Desfrute de um dia inteiro de aventura em qualquer uma de nossas atividades emocionantes, incluindo trilhas, escalada em rocha, canoagem e muito mais.</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-success ">Sign up for free</button>
+            <button type="button" class="w-100 btn btn-lg btn-outline-success ">Escolher Planos</button>
           </div>
         </div>
       </div>
@@ -136,55 +101,55 @@
             <h4 class="my-0 fw-normal">Hospedagem Semanal</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">$400<small class="text-body-secondary fw-light">/p</small></h1>
             <ul class="list mt-3 mb-4">
               <li>Desfrute de uma semana de hospedagem em nossas instalações exclusivas dentro do parque.</li>
               <li>Inclui acesso ilimitado a todas as atividades do Natural Adventure durante sua estadia.</li>
           
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-success ">Get started</button>
+            <button type="button" class="w-100 btn btn-lg btn-success ">Escolher Planos</button>
           </div>
         </div>
       </div>
       <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm border-success">
-          <div class="card-header py-3 text-bg-success  border-success">
+        <div class="card mb-4 rounded-3 shadow-sm border-warning">
+          <div class="card-header py-3 text-bg-warning  border-warning">
             <h4 class="my-0 fw-normal">Fim de Semana PRO</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">$110<small class="text-body-secondary fw-light">/p</small></h1>
             <ul class="list mt-3 mb-4">
               <li>Perfeito para famílias que desejam uma escapada emocionante.</li>
               <li>Inclui dois dias de atividades para toda a família, com descontos especiais para crianças.</li>
-              <li>R$ 250 para crianças (até 12 anos).</li>
+              <li>R$ 90 para crianças (até 12 anos).</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-success">Contact us</button>
+            <button type="button" class="w-100 btn btn-lg btn-warning ">Escolher Planos</button>
           </div>
         </div>
       </div>
     </div>
 
-    <h2 class="display-6 text-center mb-4">Compare plans</h2>
+    <h2 class="display-6 text-center mb-4">Compare os planos</h2>
 
     <div class="table-responsive">
       <table class="table text-center">
         <thead>
           <tr>
             <th style="width: 34%;"></th>
-            <th style="width: 22%;">Free</th>
-            <th style="width: 22%;">Pro</th>
-            <th style="width: 22%;">Enterprise</th>
+            <th style="width: 22%;" >Aventura Total</th>
+            <th style="width: 22%;" class="text-success">Hospedagem</th>
+            <th style="width: 22%;" class="text-warning" >PRO</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" class="text-start">Public</th>
+            <th scope="row" class="text-start ">Todas as atividades</th>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Private</th>
+            <th scope="row" class="text-start">Piscina</th>
             <td></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
@@ -193,19 +158,19 @@
 
         <tbody>
           <tr>
-            <th scope="row" class="text-start">Permissions</th>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Sharing</th>
+            <th scope="row" class="text-start">Dormitórios</th>
             <td></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Unlimited members</th>
+            <th scope="row" class="text-start">Segurança</th>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Alimentação incluida</th>
             <td></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
