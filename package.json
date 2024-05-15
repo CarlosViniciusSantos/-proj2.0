@@ -49,6 +49,7 @@
   },
   "homepage": "https://creative-tim.com/product/material-kit",
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "js-datepicker": "^5.18.2"
   }
 }
