@@ -2,11 +2,13 @@
   "users": [
     {
       "username": "usuario1@gmail",
-      "password": "usuario1"
+      "password": "usuario1",
+      "id": "1f3f"
     },
     {
       "username": "usuario2@gmail",
-      "password": "usuario2"
+      "password": "usuario2",
+      "id": "d8ba"
     },
     {
       "id": "f727",
@@ -27,6 +29,16 @@
       "id": "ce51",
       "username": "carlos@gmail",
       "password": "1234"
+    },
+    {
+      "id": "f0de",
+      "username": "laryssa@gmail",
+      "password": "1234"
+    },
+    {
+      "id": "6a81",
+      "username": "luiz@gmail",
+      "password": "123"
     }
   ]
 }
