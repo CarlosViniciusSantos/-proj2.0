@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ingresso {
+  id              Int                     @id @default(autoincrement())
+  cliente_id      Int?
+  codigo          String?                 @unique(map: "codigo_ingresso_UNIQUE") @db.VarChar(100)
+  valor_pago      Decimal?                @db.Decimal(8, 2)
+  data_pedido     DateTime                @default(now()) @db.Timestamp(0)
+  data_visita     DateTime?               @db.Date
+  data_utilizacao DateTime?               @db.Timestamp(0)
+  ingresso_tipo   ingresso_ingresso_tipo?
+  usuario         usuario?                @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pedido_cliente1")
+
+  @@index([cliente_id], map: "fk_pedido_cliente1_idx")
+}
+
+model preco {
+  id    Int     @id @default(autoincrement()) @db.UnsignedInt
+  preco Decimal @db.Decimal(10, 2)
+}
+
+model usuario {
+  id            Int           @id @default(autoincrement())
+  nome_completo String?       @db.VarChar(50)
+  usuario       String?       @db.VarChar(50)
+  email         String?       @db.VarChar(255)
+  senha         String?       @db.VarChar(100)
+  tipo          usuario_tipo?
+  telefone      String?       @db.VarChar(20)
+  nascimento    DateTime?     @db.Date
+  cpf           String?       @db.Char(11)
+  cnpj          String?       @db.Char(14)
+  ingresso      ingresso[]
+}
+
+enum usuario_tipo {
+  Administrador
+  Funcion_rio   @map("Funcionário")
+  Cliente
+}
+
+enum ingresso_ingresso_tipo {
+  Inteira
+  Meia_Entrada @map("Meia-Entrada")
+  Isen__o      @map("Isenção")
+}

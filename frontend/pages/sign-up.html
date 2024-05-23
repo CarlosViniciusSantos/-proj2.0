@@ -195,19 +195,19 @@
 
             if (password === password2) {
                 try {
-                    const response = await fetch('http://localhost:3000/users');
-                    const users = await response.json();
-                    const userExists = users.some(user => user.username === username);
+                    const response = await fetch('http://localhost:3000/user');
+                    const result = await response.json();
+                    const userExists = result.users.filter(user => user.nome_completo === username);
                     
-                    if (userExists) {
+                    if (userExists.length > 0) {
                         alert('O email já existe. Por favor, escolha um email diferente.');
                     } else {
                         const newUser = {
-                            username: username,
-                            password: password
+                            nome_completo: username,
+                            senha: password
                         };
 
-                        const registerResponse = await fetch('http://localhost:3000/users', {
+                        const registerResponse = await fetch('http://localhost:3000/user', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
