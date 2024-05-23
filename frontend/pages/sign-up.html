@@ -73,8 +73,12 @@
             <div class="card-body">
               <form role="form" id="registerForm" class="text-start">
                 <div class="input-group input-group-outline my-3">
+                  <label class="form-label">Nome completo</label>
+                  <input type="text" id="registerUsername" class="form-control">
+                </div>
+                <div class="input-group input-group-outline my-3">
                   <label class="form-label">Email</label>
-                  <input type="email" id="registerUsername" class="form-control">
+                  <input type="email" id="registerUseremail" class="form-control">
                 </div>
                 <div class="input-group input-group-outline mb-3">
                   <label class="form-label" placeholder="Password">Senha</label>
@@ -136,60 +140,11 @@
 </body>
 
 <script>
-  // document.getElementById('registerForm').addEventListener('submit', function (event) {
-  //   event.preventDefault();
-
-  //   const username = document.getElementById('registerUsername').value;
-  //   const password = document.getElementById('registerPassword').value;
-  //   const password2 = document.getElementById('registerPassword2').value;
-
-  //   if (password === password2) {
-      
-  //     fetch('http://localhost:3000/users')
-  //     .then(response => response.json())
-  //     .then(users => {
-  //       const userExists = users.some(user => user.username === username);
-  //       if (userExists) {
-  //         alert('Username already exists. Please choose a different username.');
-  //       } else {
-  //         const newUser = {
-  //           username: username,
-  //           password: password
-  //         };
-          
-  //         fetch('http://localhost:3000/users', {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'application/json'
-  //           },
-  //           body: JSON.stringify(newUser)
-  //         })
-  //         .then(response => {
-  //           if (response.ok) {
-  //             alert('Registration successful!');
-  //             window.location.href ='pI/preco.html'
-  //           } else {
-  //             alert('Registration failed.');
-  //           }
-  //         })
-  //         .catch(error => {
-  //           console.error('Error registering user:', error);
-  //           alert('An error occurred. Please try again later.');
-  //         });
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching users:', error);
-  //       alert('An error occurred. Please try again later.');
-  //     });
-  //   }
-  //   });
-
-
   document.getElementById('registerForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const username = document.getElementById('registerUsername').value;
+            const useremail = document.getElementById('registerUseremail').value;
             const password = document.getElementById('registerPassword').value;
             const password2 = document.getElementById('registerPassword2').value;
 
@@ -204,6 +159,7 @@
                     } else {
                         const newUser = {
                             nome_completo: username,
+                            email: useremail,
                             senha: password
                         };
 
