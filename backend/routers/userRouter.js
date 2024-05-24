@@ -10,12 +10,12 @@ router.get("/",async (req,res)=>{
     const users = await prisma.usuario.findMany()
     res.json({menssagem:"usuarios listados com sucesso", users})
 });
+
 router.get("/:id",async (req,res)=>{
     const {id} = req.params
     const user = await prisma.usuario.findUnique({ 
         where:{
-            id:+id
-
+            id:+id,
         }
     })
     res.json({menssagem:"usuarios listados com sucesso", user})
@@ -33,10 +33,10 @@ router.post("/",async (req,res)=>{
 router.put("/:id", async(req,res)=>{
     const {id} = req.params
     const data = req.body
+    data.id = +id
     const user = await prisma.usuario.update({ 
         where:{
             id:+id
-
         },
         data
     })

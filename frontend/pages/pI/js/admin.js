@@ -85,10 +85,47 @@ document.addEventListener("DOMContentLoaded", function () {
     btnAtualizar.addEventListener("click", () => {
       abrirModalEditar(user, index)
     });
+
+    const btnExcluir = document.createElement("button");
+    btnExcluir.textContent = "Excluir"
+    btnExcluir.classList.add("btn-excluir")
+    btnExcluir.addEventListener("click", ()=>{
+        excluirUser(index);
+    });
+
     row.appendChild(btnAtualizar);
 
     return row;
   }
+
+ async  function excluirUser(user, index){
+    users.splice(index, 1)
+    try {
+      console.log(users[index]);
+          const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(users[index])  
+          });
+
+          if (!response.ok) {
+              throw new Error('Erro ao excluir o usuario');
+          }
+
+          // Fechando o modal após a atualização
+          modal.style.display = "none";
+          
+          // Recarregando os usuários após a atualização
+          carregarUsers();
+
+      } catch (error) {
+          console.error('Erro ao excluir o usuario:', error);
+      }
+
+    exibirUsers();
+}
 
   function abrirModalEditar(user, index) {
     const modal = document.getElementById("modal-editar");
@@ -105,34 +142,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     modal.style.display = "block"
 
-    form.onsubmit = function (event) {
+    form.onsubmit = async function (event) {
       event.preventDefault();
+    
+      
 
-      users[index].nome_completo = form.querySelector("#nome").value
-      users[index].email = form.querySelector("#email").value;
-      users[index].plano = form.querySelector("#plano").value;
-      users[index].preco = form.querySelector("#preco").value;
-      users[index].data_compra = form.querySelector("#data_compra").value;
+        users[index].id = form.querySelector("#id").value,
+        users[index].nome_completo = form.querySelector("#nome").value,
+        users[index].email = form.querySelector("#email").value
+      
+      // plano = form.querySelector("#plano").value;
+      // preco = form.querySelector("#preco").value;
+      // data_compra = form.querySelector("#data_compra").value;
 
-      // try {
-      //       const response = await fetch(`http://localhost:3000/user/${user.id}`, {
-      //           method: 'PUT',
-      //           body: formData
-      //       });
+      try {
+        console.log(users[index]);
+            const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(users[index])  
+            });
 
-      //       if (!response.ok) {
-      //           throw new Error('Erro ao atualizar usuário');
-      //       }
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar usuário');
+            }
 
-      //       // Fechando o modal após a atualização
-      //       modal.style.display = "none";
+            // Fechando o modal após a atualização
+            modal.style.display = "none";
             
-      //       // Recarregando os usuários após a atualização
-      //       carregarUsers();
+            // Recarregando os usuários após a atualização
+            carregarUsers();
 
-      //   } catch (error) {
-      //       console.error('Erro ao atualizar usuário:', error);
-      //   }
+        } catch (error) {
+            console.error('Erro ao atualizar usuário:', error);
+        }
 
       modal.style.display = "none";
 
