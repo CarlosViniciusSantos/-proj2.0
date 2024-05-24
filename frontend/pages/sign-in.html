@@ -134,14 +134,14 @@
    document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const username = document.getElementById('email').value;
+            const useremail = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch('http://localhost:3000/users');
-                const users = await response.json();
-                const user = users.find(user => user.username === username && user.password === password);
-
+              const response = await fetch('http://localhost:3000/user');
+              const result = await response.json();
+              const user = result.users.find(user => user.email === useremail && user.senha === password);
+              
                 if (user) {
                     alert('Login concluido!');
                     window.location.href = 'pI/preco.html'; // Substitua 'pI/preco.html' pelo caminho da sua página
