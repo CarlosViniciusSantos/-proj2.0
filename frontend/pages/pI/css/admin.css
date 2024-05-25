@@ -151,6 +151,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal-content-adicionar,
 .modal-content-editar {
   background-color: #fefefe;
   margin: 10% auto;
@@ -159,7 +160,7 @@
   width: 60%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
-
+.close-adicionar,
 .close-editar {
   color: #aaa;
   float: right;
@@ -167,7 +168,8 @@
   font-weight: bold;
 }
 
-
+.close-adicionar:hover,
+.close-adicionar:focus,
 .close-editar:hover,
 .close-editar:focus {
   color: black;
@@ -175,6 +177,7 @@
   cursor: pointer;
 }
 
+#formAdicionar,
 #form-editar {
   display: flex;
   flex-direction: column;
@@ -193,6 +196,8 @@
 .btn-excluir:hover {
   background-color: #e60000;
 }
+
+.btn-abrirEditar,
 .btn-editar {
   margin-top: 10px;
  
@@ -202,7 +207,72 @@
   padding: 5px 10px;
   cursor: pointer;
 }
-
+.btn-abrirEditar:hover
 .btn-editar:hover {
   background-color: #2d2828;
 }
+
+#modalAdicionar {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#formAdicionar label {
+  font-size: .875rem;
+  font-weight: 400;
+  margin-bottom: .5rem;
+  color: #7b809a;
+  margin-left: .25rem;
+}
+
+#formAdicionar input[type="text"],
+#formAdicionar input[type="email"],
+#formAdicionar input[type="tel"] {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#formAdicionar input[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#formAdicionar input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.btn-abrir-modal {
+    background-color: #57566e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-abrir-modal:hover {
+    background-color: #1f1d22;
+}
+

@@ -9,11 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Dashboard Template · Bootstrap v5.3</title>
+    <title>ADMINISTRATIVO ADVENTURE</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 
     <link rel="stylesheet" href="css/admin.css">
+
+    <link rel="icon" type="image/x-icon" href="img/miniLG.svg">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -82,8 +84,7 @@
                     <h1 class="h2">Painel Clientes</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                            <button id="btnAbrirModalAdicionar" class="btn-abrir-modal">Adicionar Usuário</button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +168,26 @@
                 
                                 <input class="btn-editar" type="submit" value="Editar">
 
-                                <button class="btn-excluir">Excluir</button>
+                                <button type="button" id="btn-excluir" class="btn-excluir">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="modalAdicionar" class="modal">
+                        <div class="modal-content-adicionar">
+                            <span class="close-adicionar">&times;</span>
+                            <h2>Adicionar Usuário</h2>
+                            <form id="formAdicionar">
+                                <label for="nome">Nome:</label>
+                                <input type="text" id="nomeAdicionar" required>
+                
+                                <label for="email">E-mail:</label>
+                                <input type="email" id="emailAdicionar" required>
+                
+                                <label for="telefone">Telefone:</label>
+                                <input type="tel" id="telefoneAdicionar" pattern="\([0-9]{2}\) [0-9]{5}[0-9]{4}" required
+                                    placeholder="(xx) xxxxx-xxxx">
+                
+                                <button type="submit">Adicionar</button>
                             </form>
                         </div>
                     </div>

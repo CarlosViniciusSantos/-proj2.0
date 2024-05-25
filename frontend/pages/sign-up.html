@@ -77,6 +77,10 @@
                   <input type="text" id="registerUsername" class="form-control">
                 </div>
                 <div class="input-group input-group-outline my-3">
+                  <label class="form-label">Telefone</label>
+                  <input type="text" id="tell"  maxlength="15" class="form-control">
+                </div>
+                <div class="input-group input-group-outline my-3">
                   <label class="form-label">Email</label>
                   <input type="email" id="registerUseremail" class="form-control">
                 </div>
@@ -140,52 +144,77 @@
 </body>
 
 <script>
-  document.getElementById('registerForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+ const telefoneInput = document.getElementById("tell");
+ telefoneInput.addEventListener("input", function (event) {
+    const input = event.target;
+    let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
 
-            const username = document.getElementById('registerUsername').value;
-            const useremail = document.getElementById('registerUseremail').value;
-            const password = document.getElementById('registerPassword').value;
-            const password2 = document.getElementById('registerPassword2').value;
+    if (value.length > 10) {
+      value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
+    }
 
-            if (password === password2) {
-                try {
-                    const response = await fetch('http://localhost:3000/user');
-                    const result = await response.json();
-                    const userExists = result.users.filter(user => user.nome_completo === username);
-                    
-                    if (userExists.length > 0) {
-                        alert('O email já existe. Por favor, escolha um email diferente.');
-                    } else {
-                        const newUser = {
-                            nome_completo: username,
-                            email: useremail,
-                            senha: password
-                        };
+    // Adiciona os parênteses e o traço conforme o usuário digita
+    if (value.length > 6) {
+      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
+    } else if (value.length > 2) {
+      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
 
-                        const registerResponse = await fetch('http://localhost:3000/user', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(newUser)
-                        });
+    input.value = value;
+  })
+  document.getElementById('registerForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-                        if (registerResponse.ok) {
-                            alert('Cadastro realizado com sucesso!');
-                            window.location.href = 'pI/preco.html'; 
-                        } else {
-                            alert('Cadastro falhou');
-                        }
-                    }
-                } catch (error) {
-                    console.error('Erro ao registrar usuário:', error);
-                    alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');
-                }
-            } else {
-                alert('As senhas não coincidem. Por favor, tente novamente.');
-            }
-        });
+    const username = document.getElementById('registerUsername').value;
+    const fone = document.getElementById('tell').value.replace(/\D/g, "");
+    const useremail = document.getElementById('registerUseremail').value;
+    const password = document.getElementById('registerPassword').value;
+    const password2 = document.getElementById('registerPassword2').value;
+    
+
+    if (password === password2) {
+
+      try {
+        const response = await fetch('http://localhost:3000/user');
+        const result = await response.json();
+        const userExists = result.users.filter(user => user.nome_completo === username);
+
+        if (userExists.length > 0) {
+          alert('O email já existe. Por favor, escolha um email diferente.');
+        } else {
+          const newUser = {
+            nome_completo: username,
+            telefone: fone,
+            email: useremail,
+            senha: password,
+            tipo: "Cliente"
+          };
+
+          const registerResponse = await fetch('http://localhost:3000/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+          });
+
+          if (registerResponse.ok) {
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'pI/preco.html';
+          } else {
+            alert('Cadastro falhou');
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao registrar usuário:', error);
+        alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');
+      }
+    } else {
+      alert('As senhas não coincidem. Por favor, tente novamente.');
+    }
+  });
 </script>
 
 </html>

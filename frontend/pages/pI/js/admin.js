@@ -1,6 +1,95 @@
 var users = []
+const telefoneInput = document.getElementById("telefoneAdicionar");
+ telefoneInput.addEventListener("input", function (event) {
+    const input = event.target;
+    let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
+
+    if (value.length > 10) {
+      value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
+    }
+
+    // Adiciona os parênteses e o traço conforme o usuário digita
+    if (value.length > 6) {
+      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
+    } else if (value.length > 2) {
+      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    input.value = value;
+  })
 
 document.addEventListener("DOMContentLoaded", function () {
+
+  const modalAdicionar = document.getElementById("modalAdicionar");
+  const formAdicionar = document.getElementById("formAdicionar");
+
+  // Função para abrir o modal de adicionar usuário
+  function abrirModalAdicionar() {
+      modalAdicionar.style.display = "block";
+  }
+
+  // Função para fechar o modal de adicionar usuário
+  function fecharModalAdicionar() {
+      modalAdicionar.style.display = "none";
+  }
+
+  // Adiciona um evento de clique ao botão de adicionar usuário para abrir o modal
+  document.getElementById("btnAbrirModalAdicionar").addEventListener("click", abrirModalAdicionar);
+
+  // Adiciona um evento de clique ao botão de fechar do modal de adicionar usuário
+  
+
+  // Adiciona um evento de envio ao formulário de adicionar usuário
+  formAdicionar.addEventListener("submit",async function (event) {
+      event.preventDefault();
+
+      // Obtenha os valores dos campos do formulário
+      const nome = document.getElementById("nomeAdicionar").value;
+      const email = document.getElementById("emailAdicionar").value;
+      const telefone = document.getElementById("telefoneAdicionar").value.replace(/\D/g, "");
+
+      // Aqui você pode fazer o que quiser com os valores, como enviá-los para o backend
+      try {
+        const response = await fetch('http://localhost:3000/user');
+        const result = await response.json();
+        const userExists = result.users.filter(user => user.nome_completo === nome);
+
+        if (userExists.length > 0) {
+          alert('O email já existe. Por favor, escolha um email diferente.');
+        } else {
+          const newUser = {
+            nome_completo: nome,
+            telefone: telefone,
+            email: email,
+            // senha: password,
+            tipo: "Cliente"
+          };
+
+          const registerResponse = await fetch('http://localhost:3000/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+          });
+
+          if (registerResponse.ok) {
+            alert('Cadastro realizado com sucesso!');
+            carregarUsers()
+          } else {
+            alert('Cadastro falhou');
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao registrar usuário:', error);
+        alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');
+      }
+
+      // Após lidar com os valores, feche o modal
+      fecharModalAdicionar();
+  });
 
   async function carregarUsers() {
     try {
@@ -86,46 +175,32 @@ document.addEventListener("DOMContentLoaded", function () {
       abrirModalEditar(user, index)
     });
 
-    const btnExcluir = document.createElement("button");
-    btnExcluir.textContent = "Excluir"
-    btnExcluir.classList.add("btn-excluir")
-    btnExcluir.addEventListener("click", ()=>{
-        excluirUser(index);
-    });
 
     row.appendChild(btnAtualizar);
 
     return row;
   }
 
- async  function excluirUser(user, index){
-    users.splice(index, 1)
-    try {
-      console.log(users[index]);
-          const response = await fetch(`http://localhost:3000/user/${user.id}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(users[index])  
-          });
+  async function excluirUser(id) {
+    if (confirm("Tem certeza de que deseja excluir este usuário?")) {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${id}`, {
+          method: 'DELETE'
+        });
 
-          if (!response.ok) {
-              throw new Error('Erro ao excluir o usuario');
-          }
+        if (!response.ok) {
+          throw new Error('Erro ao deletar usuário');
+        }
 
-          // Fechando o modal após a atualização
-          modal.style.display = "none";
-          
-          // Recarregando os usuários após a atualização
-          carregarUsers();
+        alert("Usuário deletado com sucesso");
+        carregarUsers();
 
       } catch (error) {
-          console.error('Erro ao excluir o usuario:', error);
+        console.error('Erro ao deletar usuário:', error);
+        alert("Erro ao deletar usuário");
       }
-
-    exibirUsers();
-}
+    }
+  }
 
   function abrirModalEditar(user, index) {
     const modal = document.getElementById("modal-editar");
@@ -144,62 +219,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.onsubmit = async function (event) {
       event.preventDefault();
-    
-      
 
-        users[index].id = form.querySelector("#id").value,
+
+
+      users[index].id = form.querySelector("#id").value,
         users[index].nome_completo = form.querySelector("#nome").value,
         users[index].email = form.querySelector("#email").value
-      
+
       // plano = form.querySelector("#plano").value;
       // preco = form.querySelector("#preco").value;
       // data_compra = form.querySelector("#data_compra").value;
 
       try {
         console.log(users[index]);
-            const response = await fetch(`http://localhost:3000/user/${user.id}`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(users[index])  
-            });
+        const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(users[index])
+        });
 
-            if (!response.ok) {
-                throw new Error('Erro ao atualizar usuário');
-            }
-
-            // Fechando o modal após a atualização
-            modal.style.display = "none";
-            
-            // Recarregando os usuários após a atualização
-            carregarUsers();
-
-        } catch (error) {
-            console.error('Erro ao atualizar usuário:', error);
+        if (!response.ok) {
+          throw new Error('Erro ao atualizar usuário');
         }
+
+        // Fechando o modal após a atualização
+        modal.style.display = "none";
+
+        // Recarregando os usuários após a atualização
+        carregarUsers();
+
+      } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+      }
 
       modal.style.display = "none";
 
       exibirUsers();
     }
+
+    document.getElementById("btn-excluir").onclick = function(){
+      excluirUser(user.id);
+      modal.style.display = "none"
+    }
+
   }
-
-
 
   const modalAtualizar = document.getElementById("modal-editar");
   const closeBtnAtualizar = modalAtualizar.querySelector(".close-editar");
-  closeBtnAtualizar.onclick = function (){
-      modalAtualizar.style.display = "none";
+  closeBtnAtualizar.onclick = function () {
+    modalAtualizar.style.display = "none";
   }
-  
-  window.onclick = function (event){
-      // if (event.target === modalAdicionar) {
-      //     modalAdicionar.style.display = "none"
-      // } else 
-      if (event.target === modalAtualizar) {
-          modalAtualizar.style.display = "none"
-      }
+
+  const closeBtnAdicionar = modalAdicionar.querySelector(".close-adicionar");
+  closeBtnAdicionar.onclick = function () {
+    modalAdicionar.style.display = "none";
+  }
+
+
+
+
+
+
+  window.onclick = function (event) {
+    if (event.target === modalAdicionar) {
+        modalAdicionar.style.display = "none"
+    }  
+    else if (event.target === modalAtualizar) {
+      modalAtualizar.style.display = "none"
+    }
   }
   carregarUsers()
 })
