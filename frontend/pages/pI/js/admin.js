@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const response = await fetch('http://localhost:3000/user');
         const result = await response.json();
-        const userExists = result.users.filter(user => user.nome_completo === nome);
+        const userExists = result.users.filter(user => user.email === email);
 
         if (userExists.length > 0) {
           alert('O email já existe. Por favor, escolha um email diferente.');
@@ -114,72 +114,75 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function criarUser(user, index) {
+    
     const row = document.createElement("tr");
     row.classList.add("emlinha");
-
-    const avatarColumn = document.createElement("td");
-
-    const avatarContainer = document.createElement("div");
-    avatarContainer.classList.add("d-flex", "px-2", "py-1");
-
-    const avatarImage = document.createElement("img");
-    avatarImage.src = "img/user.png";
-    avatarImage.classList.add("avatar", "avatar-sm", "me-3");
-
-    const userDetails = document.createElement("div");
-    userDetails.classList.add("d-flex", "flex-column", "justify-content-center");
-
-    const userName = document.createElement("h6");
-    userName.textContent = user.nome_completo;
-    userName.classList.add("mb-0", "text-xs");
-
-    const userEmail = document.createElement("p");
-    userEmail.textContent = user.email;
-    userEmail.classList.add("text-xs", "text-secondary", "mb-0");
-
-    userDetails.appendChild(userName);
-    userDetails.appendChild(userEmail);
-    avatarContainer.appendChild(avatarImage);
-    avatarContainer.appendChild(userDetails);
-    avatarColumn.appendChild(avatarContainer);
-    row.appendChild(avatarColumn);
-
-    const subscriptionTypeColumn = document.createElement("td");
-    const subscriptionType = document.createElement("p");
-    subscriptionType.textContent = user.ingresso_tipo;
-    subscriptionType.classList.add("text-xs", "font-weight-bold", "mb-0");
-    subscriptionTypeColumn.appendChild(subscriptionType);
-    row.appendChild(subscriptionTypeColumn);
-
-    const amountColumn = document.createElement("td");
-    const amount = document.createElement("p");
-    amount.textContent = `R$ ${user.valor}`;
-    amount.classList.add("text-xs", "text-secondary", "mb-0");
-    amountColumn.classList.add("align-middle", "text-center", "text-sm");
-    amountColumn.appendChild(amount);
-    row.appendChild(amountColumn);
-
-    const dateColumn = document.createElement("td");
-    const date = document.createElement("span");
-    date.textContent = user.data_pedido;
-    date.classList.add("text-secondary", "text-xs", "font-weight-normal");
-    dateColumn.classList.add("align-middle", "text-center");
-    dateColumn.appendChild(date);
-    row.appendChild(dateColumn);
-
-
-    const btnAtualizar = document.createElement("button");
-    btnAtualizar.textContent = "Edit"
-    btnAtualizar.classList.add("btn-abrirEditar")
-    btnAtualizar.addEventListener("click", () => {
-      abrirModalEditar(user, index)
-    });
-
-
-    row.appendChild(btnAtualizar);
-
-    return row;
-  }
+    if (user.tipo === "Cliente") {
+      
+      const avatarColumn = document.createElement("td");
+      
+      const avatarContainer = document.createElement("div");
+      avatarContainer.classList.add("d-flex", "px-2", "py-1");
+      
+      const avatarImage = document.createElement("img");
+      avatarImage.src = "img/user.png";
+      avatarImage.classList.add("avatar", "avatar-sm", "me-3");
+      
+      const userDetails = document.createElement("div");
+      userDetails.classList.add("d-flex", "flex-column", "justify-content-center");
+      
+      const userName = document.createElement("h6");
+      userName.textContent = user.nome_completo;
+      userName.classList.add("mb-0", "text-xs");
+      
+      const userEmail = document.createElement("p");
+      userEmail.textContent = user.email;
+      userEmail.classList.add("text-xs", "text-secondary", "mb-0");
+      
+      userDetails.appendChild(userName);
+      userDetails.appendChild(userEmail);
+      avatarContainer.appendChild(avatarImage);
+      avatarContainer.appendChild(userDetails);
+      avatarColumn.appendChild(avatarContainer);
+      row.appendChild(avatarColumn);
+      
+      const subscriptionTypeColumn = document.createElement("td");
+      const subscriptionType = document.createElement("p");
+      subscriptionType.textContent = user.ingresso_tipo;
+      subscriptionType.classList.add("text-xs", "font-weight-bold", "mb-0");
+      subscriptionTypeColumn.appendChild(subscriptionType);
+      row.appendChild(subscriptionTypeColumn);
+      
+      const amountColumn = document.createElement("td");
+      const amount = document.createElement("p");
+      amount.textContent = `R$ ${user.valor}`;
+      amount.classList.add("text-xs", "text-secondary", "mb-0");
+      amountColumn.classList.add("align-middle", "text-center", "text-sm");
+      amountColumn.appendChild(amount);
+      row.appendChild(amountColumn);
+      
+      const dateColumn = document.createElement("td");
+      const date = document.createElement("span");
+      date.textContent = user.data_pedido;
+      date.classList.add("text-secondary", "text-xs", "font-weight-normal");
+      dateColumn.classList.add("align-middle", "text-center");
+      dateColumn.appendChild(date);
+      row.appendChild(dateColumn);
+      
+      
+      const btnAtualizar = document.createElement("button");
+      btnAtualizar.textContent = "Edit"
+      btnAtualizar.classList.add("btn-abrirEditar")
+      btnAtualizar.addEventListener("click", () => {
+        abrirModalEditar(user, index)
+      });
+      
+      
+      row.appendChild(btnAtualizar);
+    }
+      
+      return row;
+    }
 
   async function excluirUser(id) {
     if (confirm("Tem certeza de que deseja excluir este usuário?")) {

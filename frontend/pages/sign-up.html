@@ -74,11 +74,15 @@
               <form role="form" id="registerForm" class="text-start">
                 <div class="input-group input-group-outline my-3">
                   <label class="form-label">Nome completo</label>
+                  <input type="text" id="nomeCompleto" class="form-control">
+                </div>
+                <div class="input-group input-group-outline my-3">
+                  <label class="form-label">Nome de usuário</label>
                   <input type="text" id="registerUsername" class="form-control">
                 </div>
                 <div class="input-group input-group-outline my-3">
                   <label class="form-label">Telefone</label>
-                  <input type="text" id="tell"  maxlength="15" class="form-control">
+                  <input type="text" id="tell" maxlength="15" class="form-control">
                 </div>
                 <div class="input-group input-group-outline my-3">
                   <label class="form-label">Email</label>
@@ -144,8 +148,8 @@
 </body>
 
 <script>
- const telefoneInput = document.getElementById("tell");
- telefoneInput.addEventListener("input", function (event) {
+  const telefoneInput = document.getElementById("tell");
+  telefoneInput.addEventListener("input", function (event) {
     const input = event.target;
     let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
 
@@ -167,44 +171,51 @@
   document.getElementById('registerForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    const nomeCompleto = document.getElementById('nomeCompleto').value;
     const username = document.getElementById('registerUsername').value;
     const fone = document.getElementById('tell').value.replace(/\D/g, "");
     const useremail = document.getElementById('registerUseremail').value;
     const password = document.getElementById('registerPassword').value;
     const password2 = document.getElementById('registerPassword2').value;
-    
+
 
     if (password === password2) {
 
       try {
         const response = await fetch('http://localhost:3000/user');
         const result = await response.json();
-        const userExists = result.users.filter(user => user.nome_completo === username);
+        const userExists = result.users.filter(user => user.usuario === username);
+        const emailExists = result.users.filter(user => user.email === useremail);
 
         if (userExists.length > 0) {
-          alert('O email já existe. Por favor, escolha um email diferente.');
+          alert('Nome de usuário ja existente, por favor escolha outro.')
         } else {
-          const newUser = {
-            nome_completo: username,
-            telefone: fone,
-            email: useremail,
-            senha: password,
-            tipo: "Cliente"
-          };
-
-          const registerResponse = await fetch('http://localhost:3000/user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-          });
-
-          if (registerResponse.ok) {
-            alert('Cadastro realizado com sucesso!');
-            window.location.href = 'pI/preco.html';
+          if (emailExists.length > 0) {
+            alert('O email já existe. Por favor, escolha um email diferente.');
           } else {
-            alert('Cadastro falhou');
+            const newUser = {
+              nome_completo: username,
+              telefone: fone,
+              email: useremail,
+              senha: password,
+              usuario: username,
+              tipo: "Cliente"
+            };
+
+            const registerResponse = await fetch('http://localhost:3000/user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newUser)
+            });
+
+            if (registerResponse.ok) {
+              alert('Cadastro realizado com sucesso!');
+              window.location.href = 'pI/preco.html';
+            } else {
+              alert('Cadastro falhou');
+            }
           }
         }
       } catch (error) {

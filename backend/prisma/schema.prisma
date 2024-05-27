@@ -24,13 +24,14 @@ model ingresso {
 model preco {
   id    Int     @id @default(autoincrement()) @db.UnsignedInt
   preco Decimal @db.Decimal(10, 2)
+  ingresso_tipo tipo_ingresso?
 }
 
 model usuario {
   id            Int           @id @default(autoincrement())
   nome_completo String?       @db.VarChar(50)
   usuario       String?       @db.VarChar(50)
-  email         String?       @db.VarChar(255)
+  email         String?       @db.VarChar(255) @unique
   senha         String?       @db.VarChar(100)
   tipo          usuario_tipo?
   telefone      String?       @db.VarChar(20)
@@ -42,12 +43,18 @@ model usuario {
 
 enum usuario_tipo {
   Administrador
-  Funcion_rio   @map("Funcionário")
+  Funcionario   @map("Funcionario")
   Cliente
 }
 
 enum ingresso_ingresso_tipo {
-  Inteira
-  Meia_Entrada @map("Meia-Entrada")
-  Isen__o      @map("Isenção")
+  Total
+  Hospedagem @map("Hospedagem")
+  Pro      @map("Pro")
+}
+
+enum tipo_ingresso{
+  Total
+  Hospedagem @map("Hospedagem")
+  Pro @map("Pro")
 }

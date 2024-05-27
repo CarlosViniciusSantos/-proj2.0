@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pt-br" data-bs-theme="auto">
+
+<head>
+    <script src="js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>ADMINISTRATIVO ADVENTURE</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
+
+    <link rel="stylesheet" href="css/admin.css">
+
+    <link rel="icon" type="image/x-icon" href="img/miniLG.svg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="../../assets/css/nucleo-icons.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="../../assets/css/material-kit.min.css" rel="stylesheet">
+</head>
+
+<body>
+   
+   
+
+    <header class="navbar sticky-top flex-md-nowrap p-0 shadow" style="
+    background-color: #00000078;">
+        <a href="" http-equiv="refresh" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+            <img src="img/lg-p-b.svg" width="100" height="80" class="me-2 p-2" alt="">
+            <img src="img/NATURAL ADVENTURE-pt.svg" width="200" height="100" class="me-2 p-2" alt="">
+        </a>
+
+        <ul class="navbar-nav flex-row d-md-none">
+            <li class="nav-item text-nowrap">
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false"
+                    aria-label="Toggle search">
+                    <svg class="bi">
+                        <use xlink:href="#search" />
+                    </svg>
+                </button>
+            </li>
+            <li class="nav-item text-nowrap">
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <svg class="bi">
+                        <use xlink:href="#list" />
+                    </svg>
+                </button>
+            </li>
+        </ul>
+
+        <div id="navbarSearch" class="navbar-search w-100 collapse">
+            <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+           
+
+            <main class=" ms-sm-auto  px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Painel Funcionários</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button id="btnAbrirModalAdicionar" class="btn-abrir-modal">Adicionar Funcionário</button>
+                        </div>
+                    </div>
+                </div>
+
+                <body>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Funcionário</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Planos</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Preço total</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Data
+                                            Compra</th>
+                                        <th class="text-secondary opacity-7"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lista-users">
+                                    <tr class="emlinha">
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div>
+                                                    <img src="img/user.png" class="avatar avatar-sm me-3">
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-xs">Usuario teste</h6>
+                                                    <p class="text-xs text-secondary mb-0">usuarioteste@example.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">Pro</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-xs text-secondary mb-0">R$ 200,00</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-normal">23/04/18</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button class="btn-abrirEditar">Edit</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="modal-editar" class="modal">
+                        <div class="modal-content-editar">
+                            <span class="close-editar">&times;</span>
+                            <h2>Editar usuario</h2>
+                            <form id="form-editar"> 
+                                <label for="id">ID:</label>
+                                <input type="text" id="id" readonly/>
+                
+                                <label for="nome">Nome:</label>
+                                <input type="text" id="nome" required/>
+                
+                                <label for="email">Email:</label>
+                                <input type="text" id="email" required/>
+                
+                                <label for="plano">Plano:</label>
+                                <input type="text" id="plano" required/>
+
+                                <label for="preco">Preço:</label>
+                                <input type="text" id="preco" required/>
+
+                                <label for="data_compra">Data da compra:</label>
+                                <input type="text" id="data_compra" required/>
+                
+                
+                                <input class="btn-editar" type="submit" value="Editar">
+
+                                <button type="button" id="btn-excluir" class="btn-excluir">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="modalAdicionar" class="modal">
+                        <div class="modal-content-adicionar">
+                            <span class="close-adicionar">&times;</span>
+                            <h2>Adicionar Usuário</h2>
+                            <form id="formAdicionar">
+                                <label for="nome">Nome:</label>
+                                <input type="text" id="nomeAdicionar" required>
+                
+                                <label for="email">E-mail:</label>
+                                <input type="email" id="emailAdicionar" required>
+                
+                                <label for="telefone">Telefone:</label>
+                                <input type="tel" id="telefoneAdicionar" pattern="\([0-9]{2}\) [0-9]{5}[0-9]{4}" required
+                                    placeholder="(xx) xxxxx-xxxx">
+                
+                                <button type="submit">Adicionar</button>
+                            </form>
+                        </div>
+                    </div>
+            </main>
+        </div>
+    </div>
+    <script src="js/admin.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
+        integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp"
+        crossorigin="anonymous"></script>
+    <!-- Core -->
+    <script src="../../assets/js/core/popper.min.js"></script>
+    <script src="../../assets/js/core/bootstrap.min.js"></script>
+
+   
+</body>
+
+</html>
