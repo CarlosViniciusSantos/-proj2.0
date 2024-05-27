@@ -253,8 +253,8 @@
     </footer>
   </div>
   <script>
-    const logado = localStorage.getItem('logado');
-    alert(logado)
+    const logado = JSON.parse(localStorage.getItem('userlog'));
+    console.log(logado)
 
     if (logado == "false") {
       window.location.href = '../sign-in.html';

@@ -212,9 +212,10 @@
             });
 
             if (registerResponse.ok) {
+              const result = await registerResponse.json()
+              
               alert('Cadastro realizado com sucesso!');
-              // localStorage.getItem (user.jwt)
-              // localStorage.setItem("userlog", JSON.stringify(registerResponse.user))
+              localStorage.setItem("userlog", JSON.stringify(result.user))
               window.location.href = 'pI/preco.html';
             } else {
               alert('Cadastro falhou');
