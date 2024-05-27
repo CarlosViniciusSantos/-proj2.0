@@ -202,6 +202,7 @@
               tipo: "Cliente"
             };
 
+
             const registerResponse = await fetch('http://localhost:3000/user', {
               method: 'POST',
               headers: {
@@ -212,6 +213,8 @@
 
             if (registerResponse.ok) {
               alert('Cadastro realizado com sucesso!');
+              // localStorage.getItem (user.jwt)
+              // localStorage.setItem("userlog", JSON.stringify(registerResponse.user))
               window.location.href = 'pI/preco.html';
             } else {
               alert('Cadastro falhou');
