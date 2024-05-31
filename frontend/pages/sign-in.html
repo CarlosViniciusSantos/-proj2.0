@@ -139,15 +139,33 @@
 
             try {
               const response = await fetch('http://localhost:3000/user');
-              const result = await response.json();
-              const user = result.users.find(user => user.email === useremail && user.senha === password);
+              // const user = result.users.find(user => user.email === useremail && user.senha === password);
               
-                if (user) {
-                    alert('Login concluido!');
-                    window.location.href = 'pI/preco.html'; // Substitua 'pI/preco.html' pelo caminho da sua página
-                } else {
-                    alert('Senha ou email incorreto');
-                }
+                
+
+                    const login = await fetch('http://localhost:3000/user/login',{
+                      method: 'POST',
+                      headers:{
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({
+                        email: useremail,
+                        senha: password
+                      })
+                    });
+                    
+                    if (login.ok) {
+                      const result = await login.json();
+                      localStorage.setItem("userjwt", JSON.stringify(result))
+                      alert('Login concluido!');
+                    
+                      window.location.href = 'pI/preco.html'; // Substitua 'pI/preco.html' pelo caminho da sua página
+                      
+                    } else {
+                      alert('Email ou senha incorreto')
+                    }
+
+                
             } catch (error) {
                 console.error('Usuario não encontrado:', error);
                 alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');

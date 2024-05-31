@@ -7,7 +7,9 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Pricing example · Bootstrap v5.3</title>
+  <title>PLANOS ADVENTURE</title>
+
+  <link rel="icon" type="image/x-icon" href="img/lg-p-b.svg">
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/pricing/">
 
@@ -64,11 +66,15 @@
           <img src="img/NATURAL ADVENTURE-pt.svg" width="250" height="70" class="me-2" alt="NATURAL ADVENTURE">
         </a>
 
-        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-          <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Features</a>
-          <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Enterprise</a>
-          <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Support</a>
-          <a class="py-2 link-body-emphasis text-decoration-none" href="#">Pricing</a>
+        <nav class="d-flex align-items-end flex-column mt-2 mt-md-0 ms-md-auto">
+          <script>
+            var nome = localStorage.getItem('userjwt');
+            nome = JSON.parse(nome);
+            console.log(nome.usuario);
+
+            document.write(`<h3>Olá,<small class="text-body-secondary fw-light"> ${nome.usuario}</small> </h3>`)          
+          </script>
+          <button type="button" id="logoff" class=" btn btn-outline-danger ">sair</button>
         </nav>
       </div>
 
@@ -87,7 +93,8 @@
               <h4 class="my-0 fw-normal">Aventura Total</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$70<small class="text-body-secondary fw-light">/p</small></h1>
+              <h1 class="card-title pricing-card-title">$70<small class="text-body-secondary fw-light">/pessoa</small>
+              </h1>
               <ul class="list mt-3 mb-4">
                 <li>Desfrute de um dia inteiro de aventura em qualquer uma de nossas atividades emocionantes, incluindo
                   trilhas, escalada em rocha, canoagem e muito mais.</li>
@@ -216,50 +223,60 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
         <div class="col-12 col-md">
-          <img class="mb-2" src="img/lg-pret.svg" alt="" width="24" height="19">
-          <small class="d-block mb-3 text-body-secondary">&copy; 2017–2024</small>
+          <img class="mb-2" src="img/lg-pret.svg" alt="" width="40" height="40">
+          <small class="d-block mb-3 text-body-secondary">&copy; 2007–2024</small>
         </div>
         <div class="col-6 col-md">
-          <h5>Features</h5>
+          <h5>Características</h5>
           <ul class="list-unstyled text-small">
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Coisas legais</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Recurso aleatório</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Recurso de equipe</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Coisas para desenvolvedores</a>
+            </li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Outro</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Última vez</a></li>
           </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
+          <h5>Recursos</h5>
           <ul class="list-unstyled text-small">
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Recursos</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Nome do recurso</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Outro recurso</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Recurso final</a></li>
           </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>About</h5>
+          <h5>Sobre</h5>
           <ul class="list-unstyled text-small">
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
-            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Equipe</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Localizações</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacidade</a></li>
+            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Termos</a></li>
           </ul>
         </div>
       </div>
     </footer>
   </div>
   <script>
-    const logado = JSON.parse(localStorage.getItem('userlog'));
+    const logado = JSON.parse(localStorage.getItem('userjwt'));
     console.log(logado)
 
-    if (logado == null) {
+    // function logoff() {
+    //   logado = null
+    // }
+
+    document.getElementById("logoff").onclick = function () {
+      localStorage.removeItem('userjwt');
+      location.reload()
+    }
+    if (logado == null || logado == undefined || logado == "undefined") {
       window.location.href = '../sign-in.html';
     }
 
-    /* 
+
+    /*
     login
     localStorage.setItem('logado', true);
     localStorage.setItem('token', "123abc");

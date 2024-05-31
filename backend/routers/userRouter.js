@@ -38,7 +38,8 @@ router.post("/", async (req, res) => {
             select: {
                 id: true,
                 nome_completo: true,
-                email: true
+                email: true,
+                usuario: true
             }
         });
         const jwt = generateAccessToken(user);

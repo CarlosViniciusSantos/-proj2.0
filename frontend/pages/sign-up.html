@@ -166,7 +166,8 @@
     const password = document.getElementById('registerPassword').value;
     const password2 = document.getElementById('registerPassword2').value;
 
-
+if (password.length >= 8) {
+  
     if (password === password2) {
 
       try {
@@ -203,7 +204,7 @@
               const result = await registerResponse.json()
               
               alert('Cadastro realizado com sucesso!');
-              localStorage.setItem("userlog", JSON.stringify(result.user))
+              localStorage.setItem("userjwt", JSON.stringify(result.user))
               window.location.href = 'pI/preco.html';
             } else {
               alert('Cadastro falhou');
@@ -216,6 +217,8 @@
       }
     } else {
       alert('As senhas não coincidem. Por favor, tente novamente.');
+    }}else{
+      alert('A senha é obrigatória e deve conter no minimo 8 caracteres')
     }
   });
 </script>

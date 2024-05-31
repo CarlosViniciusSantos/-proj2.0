@@ -1,24 +1,24 @@
 var users = []
 const telefoneInput = document.getElementById("telefoneAdicionar");
- telefoneInput.addEventListener("input", function (event) {
-    const input = event.target;
-    let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
+telefoneInput.addEventListener("input", function (event) {
+  const input = event.target;
+  let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
 
-    if (value.length > 10) {
-      value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
-    }
+  if (value.length > 10) {
+    value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
+  }
 
-    // Adiciona os parênteses e o traço conforme o usuário digita
-    if (value.length > 6) {
-      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
-    } else if (value.length > 2) {
-      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
-    } else if (value.length > 0) {
-      value = `(${value}`;
-    }
+  // Adiciona os parênteses e o traço conforme o usuário digita
+  if (value.length > 6) {
+    value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
+  } else if (value.length > 2) {
+    value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
+  } else if (value.length > 0) {
+    value = `(${value}`;
+  }
 
-    input.value = value;
-  })
+  input.value = value;
+})
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -27,68 +27,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Função para abrir o modal de adicionar usuário
   function abrirModalAdicionar() {
-      modalAdicionar.style.display = "block";
+    modalAdicionar.style.display = "block";
   }
 
   // Função para fechar o modal de adicionar usuário
   function fecharModalAdicionar() {
-      modalAdicionar.style.display = "none";
+    modalAdicionar.style.display = "none";
   }
 
   // Adiciona um evento de clique ao botão de adicionar usuário para abrir o modal
   document.getElementById("btnAbrirModalAdicionar").addEventListener("click", abrirModalAdicionar);
 
   // Adiciona um evento de clique ao botão de fechar do modal de adicionar usuário
-  
+
 
   // Adiciona um evento de envio ao formulário de adicionar usuário
-  formAdicionar.addEventListener("submit",async function (event) {
-      event.preventDefault();
+  formAdicionar.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-      // Obtenha os valores dos campos do formulário
-      const nome = document.getElementById("nomeAdicionar").value;
-      const email = document.getElementById("emailAdicionar").value;
-      const telefone = document.getElementById("telefoneAdicionar").value.replace(/\D/g, "");
+    // Obtenha os valores dos campos do formulário
+    const nome = document.getElementById("nomeAdicionar").value;
+    const email = document.getElementById("emailAdicionar").value;
+    const telefone = document.getElementById("telefoneAdicionar").value.replace(/\D/g, "");
 
-      // Aqui você pode fazer o que quiser com os valores, como enviá-los para o backend
-      try {
-        const response = await fetch('http://localhost:3000/user');
-        const result = await response.json();
-        const userExists = result.users.filter(user => user.email === email);
+    // Aqui você pode fazer o que quiser com os valores, como enviá-los para o backend
+    try {
+      const response = await fetch('http://localhost:3000/user');
+      const result = await response.json();
+      const userExists = result.users.filter(user => user.email === email);
 
-        if (userExists.length > 0) {
-          alert('O email já existe. Por favor, escolha um email diferente.');
+      if (userExists.length > 0) {
+        alert('O email já existe. Por favor, escolha um email diferente.');
+      } else {
+        const newUser = {
+          nome_completo: nome,
+          telefone: telefone,
+          email: email,
+          // senha: password,
+          tipo: "Cliente"
+        };
+
+        const registerResponse = await fetch('http://localhost:3000/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newUser)
+        });
+
+        if (registerResponse.ok) {
+          alert('Cadastro realizado com sucesso!');
+          carregarUsers()
         } else {
-          const newUser = {
-            nome_completo: nome,
-            telefone: telefone,
-            email: email,
-            // senha: password,
-            tipo: "Cliente"
-          };
-
-          const registerResponse = await fetch('http://localhost:3000/user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-          });
-
-          if (registerResponse.ok) {
-            alert('Cadastro realizado com sucesso!');
-            carregarUsers()
-          } else {
-            alert('Cadastro falhou');
-          }
+          alert('Cadastro falhou');
         }
-      } catch (error) {
-        console.error('Erro ao registrar usuário:', error);
-        alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');
       }
+    } catch (error) {
+      console.error('Erro ao registrar usuário:', error);
+      alert('Um erro ocorreu. Por favor, tente novamente mais tarde.');
+    }
 
-      // Após lidar com os valores, feche o modal
-      fecharModalAdicionar();
+    // Após lidar com os valores, feche o modal
+    fecharModalAdicionar();
   });
 
   async function carregarUsers() {
@@ -114,45 +114,45 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function criarUser(user, index) {
-    
+
     const row = document.createElement("tr");
     row.classList.add("emlinha");
     if (user.tipo === "Cliente") {
-      
+
       const avatarColumn = document.createElement("td");
-      
+
       const avatarContainer = document.createElement("div");
       avatarContainer.classList.add("d-flex", "px-2", "py-1");
-      
+
       const avatarImage = document.createElement("img");
       avatarImage.src = "img/user.png";
       avatarImage.classList.add("avatar", "avatar-sm", "me-3");
-      
+
       const userDetails = document.createElement("div");
       userDetails.classList.add("d-flex", "flex-column", "justify-content-center");
-      
+
       const userName = document.createElement("h6");
       userName.textContent = user.nome_completo;
       userName.classList.add("mb-0", "text-xs");
-      
+
       const userEmail = document.createElement("p");
       userEmail.textContent = user.email;
       userEmail.classList.add("text-xs", "text-secondary", "mb-0");
-      
+
       userDetails.appendChild(userName);
       userDetails.appendChild(userEmail);
       avatarContainer.appendChild(avatarImage);
       avatarContainer.appendChild(userDetails);
       avatarColumn.appendChild(avatarContainer);
       row.appendChild(avatarColumn);
-      
+
       const subscriptionTypeColumn = document.createElement("td");
       const subscriptionType = document.createElement("p");
       subscriptionType.textContent = user.ingresso_tipo;
       subscriptionType.classList.add("text-xs", "font-weight-bold", "mb-0");
       subscriptionTypeColumn.appendChild(subscriptionType);
       row.appendChild(subscriptionTypeColumn);
-      
+
       const amountColumn = document.createElement("td");
       const amount = document.createElement("p");
       amount.textContent = `R$ ${user.valor}`;
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
       amountColumn.classList.add("align-middle", "text-center", "text-sm");
       amountColumn.appendChild(amount);
       row.appendChild(amountColumn);
-      
+
       const dateColumn = document.createElement("td");
       const date = document.createElement("span");
       date.textContent = user.data_pedido;
@@ -168,21 +168,21 @@ document.addEventListener("DOMContentLoaded", function () {
       dateColumn.classList.add("align-middle", "text-center");
       dateColumn.appendChild(date);
       row.appendChild(dateColumn);
-      
-      
+
+
       const btnAtualizar = document.createElement("button");
       btnAtualizar.textContent = "Edit"
       btnAtualizar.classList.add("btn-abrirEditar")
       btnAtualizar.addEventListener("click", () => {
         abrirModalEditar(user, index)
       });
-      
-      
+
+
       row.appendChild(btnAtualizar);
     }
-      
-      return row;
-    }
+
+    return row;
+  }
 
   async function excluirUser(id) {
     if (confirm("Tem certeza de que deseja excluir este usuário?")) {
@@ -212,7 +212,8 @@ document.addEventListener("DOMContentLoaded", function () {
     form.reset();
 
     form.querySelector("#id").value = user.id;
-    form.querySelector("#nome").value = user.nome_completo;
+    form.querySelector("#nome").value = user.usuario;
+    form.querySelector("#nome_comp").value = user.nome_completo;
     form.querySelector("#email").value = user.email;
     form.querySelector("#plano").value = user.plano;
     form.querySelector("#preco").value = user.preco;
@@ -226,8 +227,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       users[index].id = form.querySelector("#id").value,
-        users[index].nome_completo = form.querySelector("#nome").value,
-        users[index].email = form.querySelector("#email").value
+      users[index].usuario = form.querySelector("#nome").value,
+      users[index].nome_completo = form.querySelector("#nome_comp").value,
+      users[index].email = form.querySelector("#email").value
 
       // plano = form.querySelector("#plano").value;
       // preco = form.querySelector("#preco").value;
@@ -262,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
       exibirUsers();
     }
 
-    document.getElementById("btn-excluir").onclick = function(){
+    document.getElementById("btn-excluir").onclick = function () {
       excluirUser(user.id);
       modal.style.display = "none"
     }
@@ -287,8 +289,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.onclick = function (event) {
     if (event.target === modalAdicionar) {
-        modalAdicionar.style.display = "none"
-    }  
+      modalAdicionar.style.display = "none"
+    }
     else if (event.target === modalAtualizar) {
       modalAtualizar.style.display = "none"
     }
