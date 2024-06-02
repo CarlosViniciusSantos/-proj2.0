@@ -55,6 +55,7 @@ router.put("/:id",authenticateToken, async (req, res) => {
     try {
         const id = Number(req.params.id);
         const data = req.body
+        console.log(data , "arroz")
         const token = req.acessToken
 
         const checkUser = await prisma.usuario.findUnique({
@@ -68,7 +69,7 @@ router.put("/:id",authenticateToken, async (req, res) => {
             return res.sendStatus(403);
         }
 
-        if ('passwor' in data) {
+        if ('password' in data) {
             if (data.password.length < 8) {
                 return res.status(400).json({
                     error: "A senha deve conter no minimo 8 caracteres"
@@ -84,10 +85,13 @@ router.put("/:id",authenticateToken, async (req, res) => {
             data: data,
             select:{
                 id: true,
+                usuario: true,
                 nome_completo: true,
                 email: true
             }
         })
+        const jwt = generateAccessToken(user);
+        user.accessToken = jwt
         res.json({ menssagem: "usuarios atualizado com sucesso", user })
     } catch (exception) {
         exceptionHandler(exception, res);
@@ -137,5 +141,18 @@ router.post('/login', async (req, res)=>{
         });
     }
 })
+
+router.put("/:id/adm", async(req,res)=>{
+    const {id} = req.params
+    const data = req.body
+    data.id = +id
+    const user = await prisma.usuario.update({ 
+        where:{
+            id:+id
+        },
+        data
+    })
+    res.json({menssagem:"usuarios atualizado com sucesso", user})
+});
 
 module.exports = router

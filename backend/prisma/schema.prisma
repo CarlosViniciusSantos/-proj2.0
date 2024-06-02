@@ -22,22 +22,24 @@ model ingresso {
 }
 
 model preco {
-  id    Int     @id @default(autoincrement()) @db.UnsignedInt
-  preco Decimal @db.Decimal(10, 2)
+  id            Int            @id @default(autoincrement()) @db.UnsignedInt
+  preco         Decimal        @db.Decimal(10, 2)
   ingresso_tipo tipo_ingresso?
 }
 
 model usuario {
-  id            Int           @id @default(autoincrement())
-  nome_completo String?       @db.VarChar(50)
-  usuario       String?       @db.VarChar(50)
-  email         String?       @db.VarChar(255) @unique
-  senha         String?       @db.VarChar(100)
+  id            Int            @id @default(autoincrement())
+  nome_completo String?        @db.VarChar(50)
+  usuario       String?        @db.VarChar(50)
+  email         String?        @unique @db.VarChar(255)
+  senha         String?        @db.VarChar(100)
   tipo          usuario_tipo?
-  telefone      String?       @db.VarChar(20)
-  nascimento    DateTime?     @db.Date
-  cpf           String?       @db.Char(11)
-  cnpj          String?       @db.Char(14)
+  telefone      String?        @db.VarChar(20)
+  nascimento    DateTime?      @db.Date
+  cpf           String?        @db.Char(11)
+  cnpj          String?        @db.Char(14)
+  salario       Decimal?       @db.Decimal(10, 2)
+  cargo         usuario_cargo?
   ingresso      ingresso[]
 }
 
@@ -50,11 +52,20 @@ enum usuario_tipo {
 enum ingresso_ingresso_tipo {
   Total
   Hospedagem @map("Hospedagem")
-  Pro      @map("Pro")
+  Pro        @map("Pro")
 }
 
-enum tipo_ingresso{
+enum tipo_ingresso {
   Total
   Hospedagem @map("Hospedagem")
-  Pro @map("Pro")
+  Pro        @map("Pro")
+}
+
+enum usuario_cargo {
+  Faxina
+  Guia
+  Guarda
+  Atendente
+  Conserto
+  Vendedor
 }

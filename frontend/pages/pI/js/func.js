@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const row = document.createElement("tr");
     row.classList.add("emlinha");
-    if (user.tipo === "Cliente") {
+    if (user.tipo === "Funcionario") {
 
       const avatarColumn = document.createElement("td");
 
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const amountColumn = document.createElement("td");
       const amount = document.createElement("p");
-      amount.textContent = `R$ ${user.valor}`;
+      amount.textContent = `R$ ${user.salario}`;
       amount.classList.add("text-xs", "text-secondary", "mb-0");
       amountColumn.classList.add("align-middle", "text-center", "text-sm");
       amountColumn.appendChild(amount);
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const dateColumn = document.createElement("td");
       const date = document.createElement("span");
-      date.textContent = user.data_pedido;
+      date.textContent = user.cargo;
       date.classList.add("text-secondary", "text-xs", "font-weight-normal");
       dateColumn.classList.add("align-middle", "text-center");
       dateColumn.appendChild(date);
@@ -213,10 +213,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.querySelector("#id").value = user.id;
     form.querySelector("#nome").value = user.usuario;
-    form.querySelector("#nome_comp").value = user.nome_completo;
+    // form.querySelector("#nome_completo").value = user.nome_completo;
     form.querySelector("#email").value = user.email;
-    form.querySelector("#plano").value = user.plano;
-    form.querySelector("#preco").value = user.preco;
+    form.querySelector("#plano").value = user.salario;
+    form.querySelector("#cargo").value = user.cargo;
     form.querySelector("#data_compra").value = user.data_compra;
 
     modal.style.display = "block"
@@ -226,32 +226,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-      users[index].id = form.querySelector("#id").value,
-      users[index].usuario = form.querySelector("#nome").value,
-      users[index].nome_completo = form.querySelector("#nome_comp").value,
-      users[index].email = form.querySelector("#email").value
-
-      // plano = form.querySelector("#plano").value;
-      // preco = form.querySelector("#preco").value;
+      const id = form.querySelector("#id").value;
+      const usuario = form.querySelector("#nome").value;
+    //   const nome_completo = form.querySelector("#nome_comp").value,
+      const email = form.querySelector("#email").value;
+      const salario = form.querySelector("#plano").value;
+      const cargo = form.querySelector("#cargo").value;
       // data_compra = form.querySelector("#data_compra").value;
+    //   console.log(users[index]);
 
-      try {
-        console.log(users[index]);
-        const response = await fetch(`http://localhost:3000/user/${user.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(users[index])
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao atualizar usuário');
+        const data= {
+            id: id,
+            usuario: usuario,
+            email: email,
+            salario: salario,
+            cargo: cargo
         }
 
-        // Fechando o modal após a atualização
-        modal.style.display = "none";
-
+      try {
+          const response = await fetch(`http://localhost:3000/user/${user.id}/adm`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar usuário');
+            }
+            
+            // Fechando o modal após a atualização
+            modal.style.display = "none";
+            
+            console.log(data);
         // Recarregando os usuários após a atualização
         carregarUsers();
 

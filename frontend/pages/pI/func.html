@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>ADMINISTRATIVO ADVENTURE</title>
+    <title>ADMINISTRATIVO FUNCIONARIOS</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 
@@ -102,11 +102,10 @@
                                             Planos</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Preço total</th>
+                                            Salario</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Data
-                                            Compra</th>
+                                            Cargo</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -138,6 +137,22 @@
                                     </tr>
 
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Funcionário</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Planos</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Salario</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Cargo</th>
+                                        <th class="text-secondary opacity-7"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -145,7 +160,7 @@
                     <div id="modal-editar" class="modal">
                         <div class="modal-content-editar">
                             <span class="close-editar">&times;</span>
-                            <h2>Editar usuario</h2>
+                            <h2>Editar Funcionario</h2>
                             <form id="form-editar"> 
                                 <label for="id">ID:</label>
                                 <input type="text" id="id" readonly/>
@@ -156,11 +171,18 @@
                                 <label for="email">Email:</label>
                                 <input type="text" id="email" required/>
                 
-                                <label for="plano">Plano:</label>
+                                <label for="plano">Salario:</label>
                                 <input type="text" id="plano" required/>
-
-                                <label for="preco">Preço:</label>
-                                <input type="text" id="preco" required/>
+  
+                                <label for="cargo">Cargo:</label>
+                                <select name="cargo" id="cargo" aria-label="select example" style="padding: 5px;" required/>
+                                    <option value="Faxina">Faxina</option>
+                                    <option value="Guia">Guia</option>
+                                    <option value="Guarda">Guarda</option>
+                                    <option value="Atendente">Atendente</option>
+                                    <option value="Conserto">Conserto</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
 
                                 <label for="data_compra">Data da compra:</label>
                                 <input type="text" id="data_compra" required/>
@@ -194,7 +216,7 @@
             </main>
         </div>
     </div>
-    <script src="js/admin.js"></script>
+    <script src="js/func.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
