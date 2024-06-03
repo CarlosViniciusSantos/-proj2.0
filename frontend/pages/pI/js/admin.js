@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function criarUser(user, index) {
+  function criarUser(user) {
 
     const row = document.createElement("tr");
     row.classList.add("emlinha");
@@ -179,10 +179,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const btnAtualizar = document.createElement("button");
-      btnAtualizar.textContent = "Edit"
-      btnAtualizar.classList.add("btn-abrirEditar")
+      btnAtualizar.textContent = "Excluir"
+      btnAtualizar.classList.add("btn-excluir")
       btnAtualizar.addEventListener("click", () => {
-        abrirModalEditar(user, index)
+        excluirUser(user.id)
       });
 
 
@@ -213,94 +213,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function abrirModalEditar(user, index) {
-    const modal = document.getElementById("modal-editar");
-    const form = document.getElementById("form-editar");
-
-    form.reset();
-
-    form.querySelector("#id").value = user.id;
-    form.querySelector("#nome").value = user.usuario;
-    form.querySelector("#nome_comp").value = user.nome_completo;
-    form.querySelector("#email").value = user.email;
-    form.querySelector("#plano").value = user.plano;
-    form.querySelector("#preco").value = user.preco;
-    form.querySelector("#data_compra").value = user.data_compra;
-
-    modal.style.display = "block"
-
-    form.onsubmit = async function (event) {
-      event.preventDefault();
-
-
-
-      users[index].id = form.querySelector("#id").value,
-      users[index].usuario = form.querySelector("#nome").value,
-      users[index].nome_completo = form.querySelector("#nome_comp").value,
-      users[index].email = form.querySelector("#email").value
-
-      // plano = form.querySelector("#plano").value;
-      // preco = form.querySelector("#preco").value;
-      // data_compra = form.querySelector("#data_compra").value;
-
-      try {
-        console.log(users[index]);
-        const response = await fetch(`http://localhost:3000/user/${user.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(users[index])
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao atualizar usuário');
-        }
-
-        // Fechando o modal após a atualização
-        modal.style.display = "none";
-
-        // Recarregando os usuários após a atualização
-        carregarUsers();
-
-      } catch (error) {
-        console.error('Erro ao atualizar usuário:', error);
-      }
-
-      modal.style.display = "none";
-
-      exibirUsers();
-    }
-
-    document.getElementById("btn-excluir").onclick = function () {
-      excluirUser(user.id);
-      modal.style.display = "none"
-    }
-
-  }
-
-  const modalAtualizar = document.getElementById("modal-editar");
-  const closeBtnAtualizar = modalAtualizar.querySelector(".close-editar");
-  closeBtnAtualizar.onclick = function () {
-    modalAtualizar.style.display = "none";
-  }
-
   const closeBtnAdicionar = modalAdicionar.querySelector(".close-adicionar");
   closeBtnAdicionar.onclick = function () {
     modalAdicionar.style.display = "none";
   }
 
-
-
-
-
-
   window.onclick = function (event) {
     if (event.target === modalAdicionar) {
       modalAdicionar.style.display = "none"
-    }
-    else if (event.target === modalAtualizar) {
-      modalAtualizar.style.display = "none"
     }
   }
   carregarUsers()

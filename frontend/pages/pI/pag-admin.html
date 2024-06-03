@@ -137,7 +137,7 @@
                                             <span class="text-secondary text-xs font-weight-normal">23/04/18</span>
                                         </td>
                                         <td class="align-middle">
-                                            <button class="btn-abrirEditar">Edit</button>
+                                            <button type="button" id="btn-excluir" class="btn-excluir">Excluir</button>
                                         </td>
                                     </tr>
 
@@ -163,39 +163,8 @@
                         </div>
                     </div>
 
-                    <div id="modal-editar" class="modal">
-                        <div class="modal-content-editar">
-                            <span class="close-editar">&times;</span>
-                            <h2>Editar usuario</h2>
-                            <form id="form-editar">
-                                <label for="id">ID:</label>
-                                <input type="text" id="id" readonly />
-
-                                <label for="nome">Nome de usuario:</label>
-                                <input type="text" id="nome" required />
-
-                                <label for="nome_comp">Nome completo:</label>
-                                <input type="text" id="nome_comp" required />
-
-                                <label for="email">Email:</label>
-                                <input type="text" id="email" required />
-
-                                <label for="plano">Plano:</label>
-                                <input type="text" id="plano" required />
-
-                                <label for="preco">Preço:</label>
-                                <input type="text" id="preco" required />
-
-                                <label for="data_compra">Data da compra:</label>
-                                <input type="text" id="data_compra" required />
-
-
-                                <input class="btn-editar" type="submit" value="Editar">
-
-                                <button type="button" id="btn-excluir" class="btn-excluir">Excluir</button>
-                            </form>
-                        </div>
-                    </div>
+                    
+                    
                     <div id="modalAdicionar" class="modal">
                         <div class="modal-content-adicionar">
                             <span class="close-adicionar">&times;</span>
