@@ -146,13 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
       avatarColumn.appendChild(avatarContainer);
       row.appendChild(avatarColumn);
 
-      const subscriptionTypeColumn = document.createElement("td");
-      const subscriptionType = document.createElement("p");
-      subscriptionType.textContent = user.ingresso_tipo;
-      subscriptionType.classList.add("text-xs", "font-weight-bold", "mb-0");
-      subscriptionTypeColumn.appendChild(subscriptionType);
-      row.appendChild(subscriptionTypeColumn);
-
       const amountColumn = document.createElement("td");
       const amount = document.createElement("p");
       amount.textContent = `R$ ${user.salario}`;

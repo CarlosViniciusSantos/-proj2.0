@@ -1,4 +1,12 @@
 var users = []
+
+const logadofunc = JSON.parse(localStorage.getItem('funcjwt'));
+console.log(logadofunc)
+
+if (logadofunc == null || logadofunc == undefined || logadofunc == "undefined") {
+  window.location.href = '../login-func.html';
+}
+
 const telefoneInput = document.getElementById("telefoneAdicionar");
 telefoneInput.addEventListener("input", function (event) {
   const input = event.target;

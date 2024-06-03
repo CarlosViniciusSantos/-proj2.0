@@ -38,45 +38,49 @@
 </head>
 
 <body>
-   
-   
 
-    <header class="navbar sticky-top flex-md-nowrap p-0 shadow" style="
+
+
+    <header class="ms-sm-auto px-md-4 navbar sticky-top flex-md-nowrap p-0 shadow" style="
     background-color: #00000078;">
         <a href="" http-equiv="refresh" class="d-flex align-items-center link-body-emphasis text-decoration-none">
             <img src="img/lg-p-b.svg" width="100" height="80" class="me-2 p-2" alt="">
             <img src="img/NATURAL ADVENTURE-pt.svg" width="200" height="100" class="me-2 p-2" alt="">
         </a>
 
-        <ul class="navbar-nav flex-row d-md-none">
-            <li class="nav-item text-nowrap">
-                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false"
-                    aria-label="Toggle search">
-                    <svg class="bi">
-                        <use xlink:href="#search" />
-                    </svg>
-                </button>
-            </li>
-            <li class="nav-item text-nowrap">
-                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <svg class="bi">
-                        <use xlink:href="#list" />
-                    </svg>
-                </button>
-            </li>
-        </ul>
+        <nav style="display: flex;flex-direction: column;align-items: flex-end;margin-top: 1rem;">
+            <div class="1 d-flex" style="display: flex;align-items: baseline; ">
 
-        <div id="navbarSearch" class="navbar-search w-100 collapse">
-            <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-        </div>
+                <script>
+                    var is_adm = localStorage.getItem('funcjwt');
+                    is_adm = JSON.parse(is_adm);
+
+                    document.write(`<h3 class="mb-0" >Olá,<small class="text-body-secondary fw-light"> ${is_adm.usuario}</small> </h3>`)
+                </script>
+                <button type="button" class="btn btn-dark ms-3" id="cliente">CLIENTES</button>
+                <script>
+                    document.getElementById('cliente').onclick = function () {
+                        window.location.href = 'pag-admin.html'
+                    }
+                </script>
+            </div>
+            <div class="2">
+                <button type="button" id="sair" class="btn btn-outline-danger">SAIR</button>
+
+            </div>
+            <script>
+                document.getElementById("sair").onclick = function () {
+                    localStorage.removeItem('funcjwt');
+                    location.reload()
+                }
+            </script>
+
+        </nav>
     </header>
 
     <div class="container-fluid">
         <div class="row">
-           
+
 
             <main class=" ms-sm-auto  px-md-4">
                 <div
@@ -97,9 +101,6 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Funcionário</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Planos</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Salario</th>
@@ -142,9 +143,6 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Funcionário</th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Planos</th>
-                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Salario</th>
                                         <th
@@ -161,33 +159,34 @@
                         <div class="modal-content-editar">
                             <span class="close-editar">&times;</span>
                             <h2>Editar Funcionario</h2>
-                            <form id="form-editar"> 
+                            <form id="form-editar">
                                 <label for="id">ID:</label>
-                                <input type="text" id="id" readonly/>
-                
+                                <input type="text" id="id" readonly />
+
                                 <label for="nome">Nome:</label>
-                                <input type="text" id="nome" required/>
-                
+                                <input type="text" id="nome" required />
+
                                 <label for="email">Email:</label>
-                                <input type="text" id="email" required/>
-                
+                                <input type="text" id="email" required />
+
                                 <label for="plano">Salario:</label>
-                                <input type="text" id="plano" required/>
-  
+                                <input type="text" id="plano" required />
+
                                 <label for="cargo">Cargo:</label>
-                                <select name="cargo" id="cargo" aria-label="select example" style="padding: 5px;" required/>
-                                    <option value="Faxina">Faxina</option>
-                                    <option value="Guia">Guia</option>
-                                    <option value="Guarda">Guarda</option>
-                                    <option value="Atendente">Atendente</option>
-                                    <option value="Conserto">Conserto</option>
-                                    <option value="Vendedor">Vendedor</option>
+                                <select name="cargo" id="cargo" aria-label="select example" style="padding: 5px;"
+                                    required />
+                                <option value="Faxina">Faxina</option>
+                                <option value="Guia">Guia</option>
+                                <option value="Guarda">Guarda</option>
+                                <option value="Atendente">Atendente</option>
+                                <option value="Conserto">Conserto</option>
+                                <option value="Vendedor">Vendedor</option>
                                 </select>
 
                                 <label for="data_compra">Data da compra:</label>
-                                <input type="text" id="data_compra" required/>
-                
-                
+                                <input type="text" id="data_compra" required />
+
+
                                 <input class="btn-editar" type="submit" value="Editar">
 
                                 <button type="button" id="btn-excluir" class="btn-excluir">Excluir</button>
@@ -201,14 +200,14 @@
                             <form id="formAdicionar">
                                 <label for="nome">Nome:</label>
                                 <input type="text" id="nomeAdicionar" required>
-                
+
                                 <label for="email">E-mail:</label>
                                 <input type="email" id="emailAdicionar" required>
-                
+
                                 <label for="telefone">Telefone:</label>
-                                <input type="tel" id="telefoneAdicionar" pattern="\([0-9]{2}\) [0-9]{5}[0-9]{4}" required
-                                    placeholder="(xx) xxxxx-xxxx">
-                
+                                <input type="tel" id="telefoneAdicionar" pattern="\([0-9]{2}\) [0-9]{5}[0-9]{4}"
+                                    required placeholder="(xx) xxxxx-xxxx">
+
                                 <button type="submit">Adicionar</button>
                             </form>
                         </div>
@@ -226,7 +225,7 @@
     <script src="../../assets/js/core/popper.min.js"></script>
     <script src="../../assets/js/core/bootstrap.min.js"></script>
 
-   
+
 </body>
 
 </html>
