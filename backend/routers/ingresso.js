@@ -33,7 +33,7 @@ router.post('/', async (req, res)=>{
 
 router.get('/:id', async (req, res) =>{
     try {
-        const is = Number(req.params.id);
+        const id = Number(req.params.id);
         const ingresso = await prisma.ingresso.findFirstOrThrow({
             where:{
                 id: id
@@ -81,10 +81,10 @@ router.post('/compra/:ingresso_id/:user_id', async (req, res)=>{
         const ingressoId= Number(req.params.ingresso_id);
         const userId= Number(req.params.user_id);
 
-        const ingresso = await prisma.preco.findFirstOrThrow({
+        const ingresso = await prisma.preco.findUniqueOrThrow({
             where:{id: ingressoId}
         });
-        const user = await prisma.usuario.findFirstOrThrow({
+        const user = await prisma.usuario.findUniqueOrThrow({
             where:{id: userId}
         });
         const compraIngresso = await prisma.ingresso.create({
