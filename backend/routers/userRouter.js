@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
+
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 const bcrypt = require('bcryptjs')
-const { generateAccessToken, authenticateToken} = require('../utils/auth')
 
+const { generateAccessToken, authenticateToken} = require('../utils/auth')
 const { exceptionHandler } = require('../utils/handlers');
 // get post put delete
 
