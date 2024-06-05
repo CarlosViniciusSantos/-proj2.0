@@ -169,13 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
       amountColumn.appendChild(amount);
       row.appendChild(amountColumn);
 
-      const dateColumn = document.createElement("td");
-      const date = document.createElement("span");
-      date.textContent = user.data_pedido;
-      date.classList.add("text-secondary", "text-xs", "font-weight-normal");
-      dateColumn.classList.add("align-middle", "text-center");
-      dateColumn.appendChild(date);
-      row.appendChild(dateColumn);
 
 
       const btnAtualizar = document.createElement("button");

@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) =>{
     }
 });
 
-router.patch('/:id', async (req, res) =>{
+router.put('/:id', async (req, res) =>{
     try {
         const id = Number(req.params.id);
         const data = req.body;
@@ -124,6 +124,60 @@ router.get('/codigo/:codigo', async (req, res) => {
         exceptionHandler(exception, res);
     }
 });
+
+// Rota PATCH para atualizar a data de acesso
+router.patch('/atualizarData', async (req, res) => {
+    try {
+      const { codigoIngresso } = req.body;
+  
+  
+      // Verifique se o ingresso existe no banco de dados
+      const ingresso = await prisma.ingresso.findFirst({
+        where: {
+          codigo: codigoIngresso,
+        },
+      });
+      
+      // Se não encontrarmos o ingresso, retorne um erro
+      if (!ingresso) {
+        return res.status(404).json({ error: 'Ingresso não encontrado' });
+      }
+      const user = await prisma.usuario.findUnique({
+        where:{
+            id: ingresso.cliente_id
+        }
+      })
+  
+      // Verifique se a data de acesso já foi registrada
+      if (ingresso.data_utilizacao) {
+        return res.status(400).json({ error: 'Este ingresso já foi utilizado', ingresso:{...ingresso,userName: user.nome_completo} });
+      }
+
+
+  
+      let date = new Date();
+      date.setHours(date.getHours()- 3)
+
+      // Atualize a data de acesso para a data atual
+      await prisma.ingresso.update({
+        where: {           
+          id: ingresso.id,
+        },
+        data: {
+          data_utilizacao: date,
+        },
+      });
+  
+      // Envie uma resposta de sucesso
+      res.status(200).json({ message: 'Data de acesso atualizada com sucesso', ingresso:{...ingresso,userName: user.nome_completo} });
+    } catch (error) {
+      console.error('Erro ao atualizar data de acesso:', error);
+      res.status(500).json({ error: 'Erro ao processar a solicitação' });
+    }
+  });
+  
+  
+
 
 // RES ROTAS NÃO EXISTENTES
 router.all('*', (req, res)=>{
