@@ -10,10 +10,10 @@ datasource db {
 model ingresso {
   id               Int       @id @default(autoincrement())
   cliente_id       Int?
-  codigo           String?   @unique(map: "codigo_ingresso_UNIQUE") @db.VarChar(100)
   data_pedido      DateTime  @default(now()) @db.Timestamp(0)
   data_utilizacao  DateTime? @db.Timestamp(0)
   id_ingresso_tipo Int?
+  codigo           Int?
   usuario          usuario?  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pedido_cliente1")
 
   @@index([cliente_id], map: "fk_pedido_cliente1_idx")

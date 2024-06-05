@@ -102,6 +102,29 @@ router.post('/compra/:ingresso_id/:user_id', async (req, res)=>{
     }
 });
 
+router.get('/codigo/:codigo', async (req, res) => {
+    try {
+        const codigo = Number(req.params.codigo);
+
+        if (isNaN(codigo)) {
+            return res.status(400).json({ error: 'Invalid code' });
+        }
+
+
+        const existe = await prisma.ingresso.findFirst({
+            where: { codigo: codigo }
+        });
+
+        if (existe) {
+            res.json({ exists: true });
+        } else {
+            res.json({ exists: false });
+        }
+    } catch (exception) {
+        exceptionHandler(exception, res);
+    }
+});
+
 // RES ROTAS NÃO EXISTENTES
 router.all('*', (req, res)=>{
     res.status(501).end();

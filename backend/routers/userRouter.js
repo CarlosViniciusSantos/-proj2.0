@@ -88,7 +88,9 @@ router.put("/:id",authenticateToken, async (req, res) => {
                 id: true,
                 usuario: true,
                 nome_completo: true,
-                email: true
+                email: true,
+                cpf: true,
+                telefone: true
             }
         })
         const jwt = generateAccessToken(user);
