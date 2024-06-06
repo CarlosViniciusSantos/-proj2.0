@@ -26,6 +26,9 @@
   <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
   <meta name="theme-color" content="#712cf9">
 
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 
 <body>
@@ -85,6 +88,11 @@
             </div>
             <div class="offcanvas-body">
               <form id="form-editar" class="mb-5">
+                <div class="form-floating mb-3">                 
+                  <input type="text" class="form-control" id="id" readonly />
+                  <label for="p" >Seu id de usuario</label>
+                </div>
+
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="nome" required />
                   <label for="floatingInput">Nome de usuario</label>
@@ -108,7 +116,7 @@
                   <label for="floatingInput">CPF</label>
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="Editar Meus Dados">
+                <input class="btn btn-primary" type="submit" value="Editar Meus Dados" style="width: 100%;">
               </form>
               <button type="button" id="logoff" class=" btn btn-outline-danger ">sair</button>
             </div>
@@ -256,6 +264,13 @@
           </tbody>
         </table>
       </div>
+      <div class="modal-ingresso">
+        <div class="ingresso" id="ingresso">
+          <h1>NATURAL ADVENTURE</h1>
+          <img id="code128" class="cod" crossOrigin="anonymous"></img>
+  
+      </div>
+      </div>
     </main>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
@@ -365,6 +380,7 @@
 
         form.reset();
 
+        form.querySelector("#id").value = nome.id;
         form.querySelector("#nome").value = nome.usuario;
         form.querySelector("#nome_comp").value = nome.nome_completo;
         form.querySelector("#email").value = nome.email;

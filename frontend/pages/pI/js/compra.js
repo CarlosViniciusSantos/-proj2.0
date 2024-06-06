@@ -133,6 +133,26 @@ document.getElementById('pro').addEventListener('click', async function () {
     comprarIngresso()
 });
 
+const modal = document.querySelector('.modal-ingresso');
+
+function downloadDivAsImage() {
+    var element = document.getElementById('ingresso');
+    if (element) {
+        html2canvas(element, { useCORS: true }).then(function (canvas) {
+            var imageData = canvas.toDataURL("image/png");
+            var link = document.createElement('a');
+            link.href = imageData;
+            link.download = 'ingresso.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }).catch(function (error) {
+            console.error('Error capturing the div: ', error);
+        });
+    } else {
+        console.error('Element with ID "ingresso" not found.');
+    }
+}
 
 async function comprarIngresso() {
     const pedido = localStorage.getItem("pedido");
@@ -165,6 +185,13 @@ async function comprarIngresso() {
 
         const compraIngresso = await response.json();
         alert(`Compra realizada com sucesso`)
+        JsBarcode("#code128", cod);
+        modal.style.display = 'flex'
+        setTimeout(() => {
+            modal.style.display = 'none'
+        }, 5 * 1000);
+        downloadDivAsImage()
+
         localStorage.removeItem("pedido")
         localStorage.removeItem("codigo")
         localStorage.removeItem("ing")
