@@ -3,59 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Date and Time</title>
+    <title>Document</title>
 </head>
 <body>
-    <button id="getDateTimeButton">Get Date and Time</button>
-    <p id="dateTimeDisplay"></p>
+    <div id="ingressos-container"></div>
 
-    <button id="generateRandomNumberButton">Generate Random Number</button>
-    <p id="randomNumberDisplay"></p>
 </body>
-</html>
-
-
 <script>
-   document.getElementById('getDateTimeButton').addEventListener('click', function() {
-    const date = new Date();
+document.addEventListener('DOMContentLoaded', async () => {
+  const clienteId = '46';  // Substitua pelo ID do cliente apropriado
+  const ingressos = await fetchIngressos(clienteId);
+  const ingressosContainer = document.getElementById('ingressos-container');
 
-    // Format date and time to YYYY-MM-DDTHH:mm:ss without milliseconds
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-
-    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
-
-    document.getElementById('dateTimeDisplay').textContent = formattedDate;
-    console.log(formattedDate);
-});
-</script>
-<script>
-
-document.getElementById('generateRandomNumberButton').addEventListener('click', async function() {
-    const uniqueRandomNumber = await generateUniqueSixDigitNumber();
-    document.getElementById('randomNumberDisplay').textContent = uniqueRandomNumber;
-    console.log(uniqueRandomNumber);
+  if (ingressos.length === 0) {
+    ingressosContainer.innerHTML = '<p>Nenhum ingresso encontrado.</p>';
+  } else {
+    ingressosContainer.innerHTML = ingressos.map(ingresso => `
+      <div class="ingresso">
+        <h3>Evento: ${ingresso.evento}</h3>
+        <p>Data: ${ingresso.data}</p>
+        <p>Local: ${ingresso.local}</p>
+        <p>Usuário: ${ingresso.usuario.nome}</p>
+      </div>
+    `).join('');
+  }
 });
 
-async function generateUniqueSixDigitNumber() {
-    let isUnique = false;
-    let randomSixDigitNumber;
 
-    while (!isUnique) {
-        randomSixDigitNumber = Math.floor(100000 + Math.random() * 900000);
-
-        const response = await fetch(`http://localhost:3000/ingresso/codigo/${randomSixDigitNumber}`);
-        const data = await response.json();
-
-        if (!data.exists) {
-            isUnique = true;
-        }
+async function fetchIngressos(clienteId) {
+  try {
+    const response = await fetch(`http://localhost:3000/user/ingresso/${clienteId}`);
+    if (!response.ok) {
+      throw new Error('Erro ao buscar os ingressos');
     }
-
-    return randomSixDigitNumber;
+    const ingressos = await response.json();
+    return ingressos;
+  } catch (error) {
+    console.error('Erro:', error);
+    return [];
+  }
 }
+
 </script>
+</html>

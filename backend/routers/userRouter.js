@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 const bcrypt = require('bcryptjs')
 
-const { generateAccessToken, authenticateToken} = require('../utils/auth')
+const { generateAccessToken, authenticateToken } = require('../utils/auth')
 const { exceptionHandler } = require('../utils/handlers');
 // get post put delete
 
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
                 nome_completo: true,
                 email: true,
                 usuario: true,
-                telefone:true
+                telefone: true
             }
         });
         const jwt = generateAccessToken(user);
@@ -53,15 +53,15 @@ router.post("/", async (req, res) => {
 
 });
 
-router.put("/:id",authenticateToken, async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
     try {
         const id = Number(req.params.id);
         const data = req.body
-        console.log(data , "arroz")
+        console.log(data, "arroz")
         const token = req.acessToken
 
         const checkUser = await prisma.usuario.findUnique({
-            where:{
+            where: {
                 id: id,
                 email: token.email
             }
@@ -85,7 +85,7 @@ router.put("/:id",authenticateToken, async (req, res) => {
                 id: +id
             },
             data: data,
-            select:{
+            select: {
                 id: true,
                 usuario: true,
                 nome_completo: true,
@@ -103,22 +103,23 @@ router.put("/:id",authenticateToken, async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    const { id } = req.params
+    const id = Number(req.params.id);
+
     const user = await prisma.usuario.delete({
         where: {
             id: +id
 
         }
-    })
+    });
     res.json({ menssagem: "usuario deletado com sucesso", user })
 });
 
-router.post('/login', async (req, res)=>{
+router.post('/login', async (req, res) => {
     try {
         const data = req.body;
         if (!'password' in data || !'email' in data) {
             return res.status(401).json({
-                error:"usuário e senha são obrigatórios"
+                error: "usuário e senha são obrigatórios"
             });
         }
         const user = await prisma.usuario.findUniqueOrThrow({
@@ -146,17 +147,50 @@ router.post('/login', async (req, res)=>{
     }
 })
 
-router.put("/:id/adm", async(req,res)=>{
-    const {id} = req.params
+router.put("/:id/adm", async (req, res) => {
+    const { id } = req.params
     const data = req.body
     data.id = +id
-    const user = await prisma.usuario.update({ 
-        where:{
-            id:+id
+    const user = await prisma.usuario.update({
+        where: {
+            id: +id
         },
         data
     })
-    res.json({menssagem:"usuarios atualizado com sucesso", user})
+    res.json({ menssagem: "usuarios atualizado com sucesso", user })
 });
+
+router.get('/ingresso/:IDUsuario', async (req, res) => {
+    try {
+
+
+        const IDUsuario = Number(req.params.IDUsuario);
+        console.log('ID do usuário:', IDUsuario);
+
+
+        const pedidosUsuario = await prisma.ingresso.findMany({
+            where: {
+                cliente_id: {
+                    equals: IDUsuario
+                }
+            },
+        include: {
+            usuario: true,
+        },
+            });
+
+
+        console.log('Pedidos encontrados:', pedidosUsuario);
+
+
+        res.json(pedidosUsuario);
+
+
+    } catch (exception) {
+        console.error('Erro ao buscar pedidos:', exception);
+        exceptionHandler(exception, res);
+    }
+});
+
 
 module.exports = router

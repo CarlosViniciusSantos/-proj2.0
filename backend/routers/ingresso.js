@@ -112,11 +112,20 @@ router.get('/codigo/:codigo', async (req, res) => {
 
 
         const existe = await prisma.ingresso.findFirst({
-            where: { codigo: codigo }
+            where: { codigo: codigo },
+            
+            select:{
+                id_ingresso_tipo: true
+            }
+           
         });
 
         if (existe) {
-            res.json({ exists: true });
+            res.json({
+                exists: true,
+               ...existe
+             });
+            
         } else {
             res.json({ exists: false });
         }
@@ -153,8 +162,6 @@ router.patch('/atualizarData', async (req, res) => {
         return res.status(400).json({ error: 'Este ingresso já foi utilizado', ingresso:{...ingresso,userName: user.nome_completo} });
       }
 
-
-  
       let date = new Date();
       date.setHours(date.getHours()- 3)
 
