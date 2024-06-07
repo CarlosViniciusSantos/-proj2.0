@@ -1,48 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js"></script>
 </head>
+
 <body>
-    <div id="ingressos-container"></div>
+  <div id="ingressos-container"></div>
 
 </body>
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const clienteId = '46';  // Substitua pelo ID do cliente apropriado
-  const ingressos = await fetchIngressos(clienteId);
-  const ingressosContainer = document.getElementById('ingressos-container');
+  document.addEventListener('DOMContentLoaded', async () => {
+    const clienteId = '36';  // Substitua pelo ID do cliente apropriado
+    const ingressos = await fetchIngressos(clienteId);
+    const ingressosContainer = document.getElementById('ingressos-container');
+    const barcodeCanvas = document.createElement('canvas');
+      JsBarcode(barcodeCanvas, ingressos.codigo, {
+        format: "CODE128",
+        displayValue: false
+      });
 
-  if (ingressos.length === 0) {
-    ingressosContainer.innerHTML = '<p>Nenhum ingresso encontrado.</p>';
-  } else {
-    ingressosContainer.innerHTML = ingressos.map(ingresso => `
+      const barcodeImage = barcodeCanvas.toDataURL();
+
+      JsBarcode("#barcode", ingressos.codigo);
+
+
+    if (ingressos.length === 0) {
+      ingressosContainer.innerHTML = '<p>Nenhum ingresso encontrado.</p>';
+    } else {
+      
+      ingressosContainer.innerHTML = ingressos.map(ingresso => `
       <div class="ingresso">
-        <h3>Evento: ${ingresso.evento}</h3>
-        <p>Data: ${ingresso.data}</p>
+        <h3>Codigo: ${ingresso.codigo}</h3>
+        <p>Data da compra: ${ingresso.data_pedido}</p>
         <p>Local: ${ingresso.local}</p>
-        <p>Usuário: ${ingresso.usuario.nome}</p>
+        <p>Usuário: ${ingresso.usuario.nome_completo}</p>
+        <img id="barcode">
       </div>
     `).join('');
-  }
-});
-
-
-async function fetchIngressos(clienteId) {
-  try {
-    const response = await fetch(`http://localhost:3000/user/ingresso/${clienteId}`);
-    if (!response.ok) {
-      throw new Error('Erro ao buscar os ingressos');
     }
-    const ingressos = await response.json();
-    return ingressos;
-  } catch (error) {
-    console.error('Erro:', error);
-    return [];
+  });
+
+
+  async function fetchIngressos(clienteId) {
+    try {
+      const response = await fetch(`http://localhost:3000/user/ingresso/${clienteId}`);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar os ingressos');
+      }
+      const ingressos = await response.json();
+      return ingressos;
+    } catch (error) {
+      console.error('Erro:', error);
+      return [];
+    }
   }
-}
 
 </script>
+
 </html>
