@@ -218,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
     form.querySelector("#email").value = user.email;
     form.querySelector("#plano").value = user.salario;
     form.querySelector("#cargo").value = user.cargo;
-    form.querySelector("#data_compra").value = user.data_compra;
 
     modal.style.display = "block"
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -15,36 +15,32 @@
 </body>
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
-    const clienteId = '36';  // Substitua pelo ID do cliente apropriado
+    const clienteId = '46';  // Substitua pelo ID do cliente apropriado
     const ingressos = await fetchIngressos(clienteId);
     const ingressosContainer = document.getElementById('ingressos-container');
-    const barcodeCanvas = document.createElement('canvas');
-      JsBarcode(barcodeCanvas, ingressos.codigo, {
-        format: "CODE128",
-        displayValue: false
-      });
-
-      const barcodeImage = barcodeCanvas.toDataURL();
-
-      JsBarcode("#barcode", ingressos.codigo);
-
 
     if (ingressos.length === 0) {
       ingressosContainer.innerHTML = '<p>Nenhum ingresso encontrado.</p>';
     } else {
-      
-      ingressosContainer.innerHTML = ingressos.map(ingresso => `
-      <div class="ingresso">
-        <h3>Codigo: ${ingresso.codigo}</h3>
-        <p>Data da compra: ${ingresso.data_pedido}</p>
-        <p>Local: ${ingresso.local}</p>
-        <p>Usuário: ${ingresso.usuario.nome_completo}</p>
-        <img id="barcode">
-      </div>
-    `).join('');
+
+      ingressosContainer.innerHTML = ingressos.map((ingresso, index) =>
+        `
+        <div class="ingresso">
+          <h3>Codigo: ${ingresso.codigo}</h3>
+          <p>Data da compra: ${ingresso.data_pedido}</p>
+          <p>Data de utilização: ${ingresso.data_utilizacao}</p>
+          <p>Usuário: ${ingresso.usuario.nome_completo}</p>
+          <img id="barcode-${index}">
+        </div>
+        `
+      ).join('');
+      ingressos.forEach((ingresso, index) => {
+        JsBarcode(`#barcode-${index}`, ingresso.codigo);
+      });
+
+
     }
   });
-
 
   async function fetchIngressos(clienteId) {
     try {

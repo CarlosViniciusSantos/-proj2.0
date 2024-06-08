@@ -1,0 +1,30 @@
+.ingresso{
+    border: double 10px rgb(43, 39, 39);
+    border-radius: 2rem;
+    margin: 5px;
+    padding: 5px;
+    padding-bottom: 0.8rem;
+    width: 70%;
+}
+
+.ingresso > img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid black 1px;
+    border-radius: 1rem;
+    width: 30%;
+    height: 5rem;
+}
+
+.row{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1* var(--bs-gutter-y));
+    margin-right: calc(-.5* var(--bs-gutter-x));
+    margin-left: calc(-.5* var(--bs-gutter-x));
+    flex-direction: column;
+    align-items: center;
+}
