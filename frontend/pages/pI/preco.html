@@ -88,9 +88,9 @@
             </div>
             <div class="offcanvas-body">
               <form id="form-editar" class="mb-5">
-                <div class="form-floating mb-3">                 
+                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" readonly />
-                  <label for="p" >Seu id de usuario</label>
+                  <label for="p">Seu id de usuario</label>
                 </div>
 
                 <div class="form-floating mb-3">
@@ -119,9 +119,9 @@
                 <input class="btn btn-primary" type="submit" value="Editar Meus Dados" style="width: 100%;">
               </form>
               <div class="row justify-content-center">
-                 
-                  <button type="button" id="mIngressos" class="col btn btn-success m-2 p-2">MEUS INGRESSOS</button>
-                  
+
+                <button type="button" id="mIngressos" class="col btn btn-success m-2 p-2">MEUS INGRESSOS</button>
+
                 <button type="button" id="logoff" class="col btn btn-outline-danger m-2 p-2">sair</button>
 
               </div>
@@ -152,7 +152,8 @@
                 <li>Desfrute de um dia inteiro de aventura em qualquer uma de nossas atividades emocionantes, incluindo
                   trilhas, escalada em rocha, canoagem e muito mais.</li>
               </ul>
-              <button type="button" class="w-100 btn btn-lg btn-outline-success" id="total" value="1">Comprar plano</button>
+              <button type="button" class="w-100 btn btn-lg btn-outline-success" id="total" value="1">Comprar
+                plano</button>
             </div>
           </div>
         </div>
@@ -168,7 +169,8 @@
                 <li>Inclui acesso ilimitado a todas as atividades do Natural Adventure durante sua estadia.</li>
 
               </ul>
-              <button type="button" class="w-100 btn btn-lg btn-success" id="hospedagem" value="2">Comprar plano</button>
+              <button type="button" class="w-100 btn btn-lg btn-success" id="hospedagem" value="2">Comprar
+                plano</button>
             </div>
           </div>
         </div>
@@ -275,8 +277,8 @@
         <div class="ingresso" id="ingresso">
           <h1>NATURAL ADVENTURE</h1>
           <img id="code128" class="cod" crossOrigin="anonymous"></img>
-  
-      </div>
+
+        </div>
       </div>
     </main>
 
@@ -321,7 +323,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.getElementById('mIngressos').addEventListener('click', function(event){
+    document.getElementById('mIngressos').addEventListener('click', function (event) {
       window.location.href = 'ingressoUser.html'
     });
 
@@ -330,42 +332,42 @@
       input.value = input.value.replace(/\s/g, ''); // Remove todos os espaços
     });
     const telefoneInput = document.getElementById("tel");
-  telefoneInput.addEventListener("input", function (event) {
-    const input = event.target;
-    let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
+    telefoneInput.addEventListener("input", function (event) {
+      const input = event.target;
+      let value = input.value.replace(/\D/g, ""); // Remove todos os caracteres que não são dígitos
 
-    if (value.length > 10) {
-      value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
-    }
+      if (value.length > 10) {
+        value = value.substring(0, 11); // Limita o tamanho máximo para 11 dígitos
+      }
 
-    // Adiciona os parênteses e o traço conforme o usuário digita
-    if (value.length > 6) {
-      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
-    } else if (value.length > 2) {
-      value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
-    } else if (value.length > 0) {
-      value = `(${value}`;
-    }
+      // Adiciona os parênteses e o traço conforme o usuário digita
+      if (value.length > 6) {
+        value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}${value.substring(7, 11)}`;
+      } else if (value.length > 2) {
+        value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
+      } else if (value.length > 0) {
+        value = `(${value}`;
+      }
 
-    input.value = value;
-  });
-  document.getElementById('cpf').addEventListener('input', function (event) {
-        const input = event.target;
-        let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+      input.value = value;
+    });
+    document.getElementById('cpf').addEventListener('input', function (event) {
+      const input = event.target;
+      let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
 
-        if (value.length > 11) {
-            value = value.slice(0, 11); // Limita ao máximo de 11 dígitos
-        }
+      if (value.length > 11) {
+        value = value.slice(0, 11); // Limita ao máximo de 11 dígitos
+      }
 
-        if (value.length > 9) {
-            value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-        } else if (value.length > 6) {
-            value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
-        } else if (value.length > 3) {
-            value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
-        }
+      if (value.length > 9) {
+        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      } else if (value.length > 6) {
+        value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+      } else if (value.length > 3) {
+        value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
+      }
 
-        input.value = value; // Atualiza o valor do campo de texto
+      input.value = value; // Atualiza o valor do campo de texto
     });
     const logado = JSON.parse(localStorage.getItem('userjwt'));
     console.log(logado)

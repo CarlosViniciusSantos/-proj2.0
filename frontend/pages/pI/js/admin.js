@@ -26,7 +26,26 @@ telefoneInput.addEventListener("input", function (event) {
   }
 
   input.value = value;
-})
+});
+
+document.getElementById('cpfAdicionar').addEventListener('input', function (event) {
+  const input = event.target;
+  let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+
+  if (value.length > 11) {
+      value = value.slice(0, 11); // Limita ao máximo de 11 dígitos
+  }
+
+  if (value.length > 9) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  } else if (value.length > 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+  } else if (value.length > 3) {
+      value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
+  }
+
+  input.value = value; // Atualiza o valor do campo de texto
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -36,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Função para abrir o modal de adicionar usuário
   function abrirModalAdicionar() {
     modalAdicionar.style.display = "block";
+    formAdicionar.reset()
   }
 
   // Função para fechar o modal de adicionar usuário
@@ -57,11 +77,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const nome = document.getElementById("nomeAdicionar").value;
     const email = document.getElementById("emailAdicionar").value;
     const telefone = document.getElementById("telefoneAdicionar").value.replace(/\D/g, "");
+    const usuario = document.getElementById('usuarioAdicionar').value;
+    const senha = document.getElementById('senhaAdicionar').value;
+    const cpf = document.getElementById('cpfAdicionar').value;
 
     // Aqui você pode fazer o que quiser com os valores, como enviá-los para o backend
     try {
       const response = await fetch('http://localhost:3000/user');
       const result = await response.json();
+      // console.log(result)
       const userExists = result.users.filter(user => user.email === email);
 
       if (userExists.length > 0) {
@@ -69,9 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         const newUser = {
           nome_completo: nome,
+          usuario: usuario,
           telefone: telefone,
+          cpf:cpf,
           email: email,
-          // senha: password,
+          senha: senha,
           tipo: "Cliente"
         };
 
@@ -156,14 +182,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const subscriptionTypeColumn = document.createElement("td");
       const subscriptionType = document.createElement("p");
-      subscriptionType.textContent = user.ingresso_tipo;
+      subscriptionType.textContent = user.nome_completo;
       subscriptionType.classList.add("text-xs", "font-weight-bold", "mb-0");
       subscriptionTypeColumn.appendChild(subscriptionType);
       row.appendChild(subscriptionTypeColumn);
 
       const amountColumn = document.createElement("td");
       const amount = document.createElement("p");
-      amount.textContent = `R$ ${user.valor}`;
+      amount.textContent = user.cpf;
       amount.classList.add("text-xs", "text-secondary", "mb-0");
       amountColumn.classList.add("align-middle", "text-center", "text-sm");
       amountColumn.appendChild(amount);

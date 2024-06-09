@@ -1,3 +1,10 @@
+const logado = JSON.parse(localStorage.getItem('userjwt'));
+console.log(logado)
+
+if (logado == null || logado == undefined || logado == "undefined") {
+  window.location.href = '../sign-in.html';
+}
+
 document.getElementById('voltar').addEventListener('click', function(event){
     window.location.href = 'preco.html'
   });

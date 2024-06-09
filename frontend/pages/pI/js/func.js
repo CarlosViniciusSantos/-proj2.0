@@ -26,7 +26,26 @@ telefoneInput.addEventListener("input", function (event) {
   }
 
   input.value = value;
-})
+});
+
+document.getElementById('cpfAdicionar').addEventListener('input', function (event) {
+  const input = event.target;
+  let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+
+  if (value.length > 11) {
+      value = value.slice(0, 11); // Limita ao máximo de 11 dígitos
+  }
+
+  if (value.length > 9) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  } else if (value.length > 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+  } else if (value.length > 3) {
+      value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
+  }
+
+  input.value = value; // Atualiza o valor do campo de texto
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -36,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Função para abrir o modal de adicionar usuário
   function abrirModalAdicionar() {
     modalAdicionar.style.display = "block";
+    formAdicionar.reset()
   }
 
   // Função para fechar o modal de adicionar usuário
@@ -57,6 +77,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const nome = document.getElementById("nomeAdicionar").value;
     const email = document.getElementById("emailAdicionar").value;
     const telefone = document.getElementById("telefoneAdicionar").value.replace(/\D/g, "");
+    const usuario = document.getElementById('usuarioAdicionar').value;
+    const senha = document.getElementById('senhaAdicionar').value;
+    const cpf = document.getElementById('cpfAdicionar').value;
+
 
     // Aqui você pode fazer o que quiser com os valores, como enviá-los para o backend
     try {
@@ -69,10 +93,12 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         const newUser = {
           nome_completo: nome,
+          usuario: usuario,
           telefone: telefone,
           email: email,
-          // senha: password,
-          tipo: "Cliente"
+          cpf: cpf,
+          senha: senha,
+          tipo: "Funcionario"
         };
 
         const registerResponse = await fetch('http://localhost:3000/user', {
@@ -228,38 +254,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const id = form.querySelector("#id").value;
       const usuario = form.querySelector("#nome").value;
-    //   const nome_completo = form.querySelector("#nome_comp").value,
+      //   const nome_completo = form.querySelector("#nome_comp").value,
       const email = form.querySelector("#email").value;
       const salario = form.querySelector("#plano").value;
       const cargo = form.querySelector("#cargo").value;
       // data_compra = form.querySelector("#data_compra").value;
-    //   console.log(users[index]);
+      //   console.log(users[index]);
 
-        const data= {
-            id: id,
-            usuario: usuario,
-            email: email,
-            salario: salario,
-            cargo: cargo
-        }
+      const data = {
+        id: id,
+        usuario: usuario,
+        email: email,
+        salario: salario,
+        cargo: cargo
+      }
 
       try {
-          const response = await fetch(`http://localhost:3000/user/${user.id}/adm`, {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            
-            if (!response.ok) {
-                throw new Error('Erro ao atualizar usuário');
-            }
-            
-            // Fechando o modal após a atualização
-            modal.style.display = "none";
-            
-            console.log(data);
+        const response = await fetch(`http://localhost:3000/user/${user.id}/adm`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error('Erro ao atualizar usuário');
+        }
+
+        // Fechando o modal após a atualização
+        modal.style.display = "none";
+
+        console.log(data);
         // Recarregando os usuários após a atualização
         carregarUsers();
 
